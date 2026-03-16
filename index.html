@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Rhythm RO · Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --rhythm-blue: #0077b6;
+            --rhythm-light-bg: #f0f4f8;
+            --status-open: #0ea5e9;
+            --status-process: #f59e0b;
+            --status-closed: #10b981;
+        }
+        body {
+            background-color: var(--rhythm-light-bg);
+            font-family: 'Inter', system-ui, sans-serif;
+            padding-bottom: 30px;
+        }
+        .cursor-pointer, [onclick], .btn, .list-group-item, .nav-link, a {
+            cursor: pointer !important;
+        }
+        .btn { transition: filter 0.2s ease; }
+        .btn:hover { filter: brightness(0.95); }
+        .btn:active { filter: brightness(0.9); }
+        .btn:focus, .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(0,119,182,0.4);
+            outline: none;
+        }
+        .tech-header {
+            background: #1e293b; color: white; padding: 20px;
+            border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
+            margin-bottom: 20px;
+        }
+        .status-pill {
+            font-size: 11px; font-weight: 700; padding: 4px 12px;
+            border-radius: 50px; text-transform: uppercase;
+        }
+        .status-open { background: #e0f2fe; color: var(--status-open); }
+        .status-process { background: #ffedd5; color: var(--status-process); }
+        .status-closed { background: #dcfce7; color: var(--status-closed); }
+        .btn-rhythm {
+            background: var(--rhythm-blue); color: white;
+            border-radius: 12px; font-weight: 600; padding: 12px;
+        }
+        .btn-rhythm:hover { background: #00669e; filter: none; }
+        .modal-dialog-centered { display: flex; align-items: center; min-height: calc(100% - 3.5rem); }
+        .hidden { display: none !important; }
+        .booking-card {
+            background: white; border-radius: 18px; padding: 15px;
+            margin-bottom: 15px; border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+        .booking-card:hover { border-color: var(--rhythm-blue); background-color: #fafdff; }
+        .notification-badge {
+            position: absolute; top: 0; right: -6px; font-size: 10px;
+        }
+        .filter-bar {
+            background: white; border-radius: 30px; padding: 10px 15px;
+            margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .filter-btn-group .btn {
+            border-radius: 30px; padding: 5px 15px; font-size: 0.9rem;
+        }
+        .date-filter {
+            max-width: 140px; display: inline-block;
+        }
+        /* service type: bold + size 0.90rem */
+        .service-type-small {
+            font-size: 0.90rem;
+            font-weight: 600;
+        }
+        /* elegant paid amount badge */
+        .paid-amount-corner {
+            text-align: right;
+            margin-top: 8px;
+        }
+        .paid-amount-corner span {
+            background-color: #dcfce7;
+            color: #0f7b5a;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ALERT MODAL -->
+<div class="modal fade" id="alertModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-3 text-center">
+            <div class="modal-body">
+                <i class="bi bi-info-circle text-primary fs-1 mb-3"></i>
+                <h5 class="fw-bold" id="alertTitle">Notice</h5>
+                <p id="alertMessage" class="text-muted"></p>
+                <button type="button" class="btn btn-primary rounded-pill px-4" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NOTIFICATION MODAL (list) -->
+<div class="modal fade" id="notifListModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold">Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="notificationList">
+                <p class="text-muted text-center">No new notifications</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAYMENT HISTORY MODAL (with filters) -->
+<div class="modal fade" id="paymentHistoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold">Payment History</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex gap-2 mb-3">
+                    <input type="date" id="paymentDateFilter" class="form-control form-control-sm" placeholder="Filter by date">
+                    <input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" placeholder="Filter by phone">
+                    <button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button>
+                </div>
+                <div id="paymentHistoryList">
+                    <p class="text-muted text-center">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROFILE EDIT MODAL (admin) -->
+<div class="modal fade" id="profileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-3">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Full Name</label>
+                    <input type="text" class="form-control" id="adminName" placeholder="Admin name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Email</label>
+                    <input type="email" class="form-control" id="adminEmail" placeholder="admin@example.com">
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" onclick="saveAdminProfile()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ASSIGN TECHNICIAN MODAL -->
+<div class="modal fade" id="assignModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-3">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold">Assign Technician</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Booking: <span id="assignBookingName"></span></p>
+                <select class="form-select" id="techSelect">
+                    <option value="John Miller">John Miller</option>
+                    <option value="Sarah K.">Sarah K.</option>
+                    <option value="Mike Chen">Mike Chen</option>
+                    <option value="Priya R.">Priya R.</option>
+                </select>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmAssign()">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LOGOUT CONFIRMATION MODAL -->
+<div class="modal fade" id="logoutConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 p-3 text-center">
+            <div class="modal-body">
+                <i class="bi bi-exclamation-circle text-warning fs-1 mb-3"></i>
+                <h5 class="fw-bold">Logout?</h5>
+                <p class="text-muted">Are you sure you want to end your session?</p>
+                <div class="d-flex gap-2 mt-4">
+                    <button class="btn btn-light w-50 rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-danger w-50 rounded-pill" onclick="performLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AUTH SECTION -->
+<div id="authSection" class="container mt-5" style="max-width: 400px;">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-primary">Admin Portal</h3>
+        <p class="text-muted">Rhythm RO · Manage Bookings</p>
+    </div>
+    <div id="loginCard" class="card border-0 shadow-sm p-4 rounded-4">
+        <input type="email" class="form-control mb-3" id="loginEmail" placeholder="Email" value="admin@ro.com">
+        <input type="password" class="form-control mb-4" id="loginPassword" placeholder="Password" value="admin123">
+        <button onclick="adminLogin()" class="btn btn-rhythm w-100">Login to Dashboard</button>
+        <p class="text-center mt-3 small">New Admin? <a href="#" onclick="toggleAdminAuth(true); return false;">Sign Up</a></p>
+    </div>
+    <div id="signupCard" class="card border-0 shadow-sm p-4 rounded-4 hidden">
+        <input type="text" class="form-control mb-2" id="regAdminName" placeholder="Full Name">
+        <input type="email" class="form-control mb-2" id="regAdminEmail" placeholder="Email">
+        <input type="password" class="form-control mb-4" id="regAdminPassword" placeholder="Password">
+        <button onclick="adminSignup()" class="btn btn-rhythm w-100">Create Account</button>
+        <p class="text-center mt-3 small">Already have account? <a href="#" onclick="toggleAdminAuth(false); return false;">Login</a></p>
+    </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="dashboard" class="hidden">
+    <div class="tech-header">
+        <div class="container" style="max-width: 600px;">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h5 class="mb-0 fw-bold" id="adminDisplayName">Admin</h5>
+                        <small class="opacity-75" id="adminDisplayEmail">admin@ro.com</small>
+                    </div>
+                    <i class="bi bi-pencil-square profile-edit-icon cursor-pointer ms-2" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="populateAdminProfile()"></i>
+                </div>
+                <div class="d-flex gap-3 align-items-center position-relative">
+                    <i class="bi bi-cash-stack fs-4 cursor-pointer" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history"></i>
+                    <i class="bi bi-bell fs-4 cursor-pointer" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge" id="notifBadge" style="font-size: 0.6rem;">0</span>
+                    <i class="bi bi-box-arrow-right fs-4 cursor-pointer" onclick="showLogoutConfirm()"></i>
+                </div>
+            </div>
+            <div class="mt-3">
+                <h6 class="fw-bold">📋 Bookings</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 600px;">
+        <!-- Filter bar -->
+        <div class="filter-bar d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <div class="filter-btn-group btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary active" onclick="filterBookings('All')">All</button>
+                <button type="button" class="btn btn-outline-primary" onclick="filterBookings('Open')">Open</button>
+                <button type="button" class="btn btn-outline-primary" onclick="filterBookings('In Process')">In Process</button>
+                <button type="button" class="btn btn-outline-primary" onclick="filterBookings('Closed')">Closed</button>
+            </div>
+            <div class="d-flex gap-2">
+                <input type="date" id="filterDate" class="form-control form-control-sm date-filter" value="2025-04-01" onchange="applyDateFilter()">
+                <button class="btn btn-sm btn-outline-secondary" onclick="clearDateFilter()">✕</button>
+            </div>
+        </div>
+
+        <!-- Booking list -->
+        <div id="bookingList"></div>
+
+        <!-- Simulate technician close (for demo) -->
+        <div class="text-center mt-3 mb-4">
+            <button class="btn btn-sm btn-outline-secondary" onclick="simulateTechnicianClose()">⚡ Simulate Job Closed (by technician)</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function() {
+        // ----- Data stores -----
+        let adminProfile = {
+            name: 'Admin User',
+            email: 'admin@ro.com'
+        };
+
+        // Sample bookings (jobs) from customers with dates, paid amounts, and payment methods
+        let bookings = [
+            { id: 1, customer: 'Mathika', phone: '9840011223', address: '#404 QA Street', service: 'Installation', status: 'Open', technician: null, date: '2025-04-01', paidAmount: null, paymentMethod: null },
+            { id: 2, customer: 'Rajesh', phone: '9003055667', address: '#12 Garden View', service: 'Service', status: 'In Process', technician: 'John Miller', date: '2025-04-02', paidAmount: null, paymentMethod: null },
+            { id: 3, customer: 'Priya', phone: '9876543210', address: '#55 Lake Road', service: 'Repair', status: 'Open', technician: null, date: '2025-04-03', paidAmount: null, paymentMethod: null },
+            { id: 4, customer: 'Anand', phone: '9123456789', address: '#7 Gandhi St', service: 'Installation', status: 'Closed', technician: 'Sarah K.', date: '2025-03-28', paidAmount: 1250, paymentMethod: 'Cash' },
+            { id: 5, customer: 'Lakshmi', phone: '9988776655', address: '#22 MG Road', service: 'Service', status: 'Closed', technician: 'Mike Chen', date: '2025-04-01', paidAmount: 800, paymentMethod: 'Online' },
+            { id: 6, customer: 'Venkat', phone: '9090909090', address: '#88 Park View', service: 'Installation', status: 'In Process', technician: 'Priya R.', date: '2025-04-03', paidAmount: null, paymentMethod: null }
+        ];
+
+        // Notifications array
+        let notifications = [];
+
+        // Current filter state
+        let currentStatusFilter = 'All';
+        let currentDateFilter = null; // null or date string YYYY-MM-DD
+
+        // To store the booking id currently being assigned
+        let currentAssignId = null;
+
+        // Payment history filters
+        let paymentDateFilter = '';
+        let paymentPhoneFilter = '';
+
+        // ----- Helper functions -----
+        function showAlert(msg, title = 'Notice') {
+            document.getElementById('alertMessage').innerText = msg;
+            document.getElementById('alertTitle').innerText = title;
+            new bootstrap.Modal(document.getElementById('alertModal')).show();
+        }
+
+        function updateAdminDisplay() {
+            document.getElementById('adminDisplayName').innerText = adminProfile.name;
+            document.getElementById('adminDisplayEmail').innerText = adminProfile.email;
+        }
+
+        function populateAdminProfile() {
+            document.getElementById('adminName').value = adminProfile.name;
+            document.getElementById('adminEmail').value = adminProfile.email;
+        }
+
+        function saveAdminProfile() {
+            const newName = document.getElementById('adminName').value.trim();
+            const newEmail = document.getElementById('adminEmail').value.trim();
+            if (!newName || !newEmail) {
+                // Hide profile modal first, then show alert
+                const profileModalEl = document.getElementById('profileModal');
+                const modalInstance = bootstrap.Modal.getInstance(profileModalEl);
+                if (modalInstance) modalInstance.hide();
+                setTimeout(() => {
+                    showAlert('Name and email are required', 'Cannot save');
+                }, 200);
+                return;
+            }
+            adminProfile.name = newName;
+            adminProfile.email = newEmail;
+            updateAdminDisplay();
+            bootstrap.Modal.getInstance(document.getElementById('profileModal')).hide();
+            showAlert('Profile updated', 'Success');
+        }
+
+        // Filtering logic
+        function filterBookings(status) {
+            currentStatusFilter = status;
+            // Update active button
+            document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            applyFilters();
+        }
+
+        function applyDateFilter() {
+            const dateInput = document.getElementById('filterDate').value;
+            currentDateFilter = dateInput || null;
+            applyFilters();
+        }
+
+        function clearDateFilter() {
+            document.getElementById('filterDate').value = '';
+            currentDateFilter = null;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            renderBookings();
+        }
+
+        // Render booking cards with filters
+        function renderBookings() {
+            let filtered = bookings;
+
+            // Status filter
+            if (currentStatusFilter !== 'All') {
+                filtered = filtered.filter(b => b.status === currentStatusFilter);
+            }
+
+            // Date filter (exact match on date)
+            if (currentDateFilter) {
+                filtered = filtered.filter(b => b.date === currentDateFilter);
+            }
+
+            const container = document.getElementById('bookingList');
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="text-muted text-center">No bookings match filters.</p>';
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(b => {
+                const statusClass = b.status === 'Open' ? 'status-open' : (b.status === 'In Process' ? 'status-process' : 'status-closed');
+                // Paid amount bottom right – now as an elegant badge
+                const paidDisplay = (b.status === 'Closed' && b.paidAmount != null) ? `<div class="paid-amount-corner"><span>₹${b.paidAmount} paid</span></div>` : '';
+                html += `
+                    <div class="booking-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <strong>${b.customer}</strong> <span class="status-pill ${statusClass}">${b.status}</span>
+                            </div>
+                            <small class="text-muted service-type-small">${b.service} | ${b.date}</small>
+                        </div>
+                        <div class="small text-muted mt-1"><i class="bi bi-telephone"></i> ${b.phone}</div>
+                        <div class="small text-muted"><i class="bi bi-geo-alt"></i> ${b.address}</div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span><i class="bi bi-person-badge"></i> Tech: ${b.technician || '—'}</span>
+                            ${b.status !== 'Closed' ? `<button class="btn btn-sm btn-outline-primary" onclick="openAssignModal(${b.id})">Assign</button>` : ''}
+                        </div>
+                        ${paidDisplay}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Open assign modal for a booking
+        function openAssignModal(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+            document.getElementById('assignBookingName').innerText = booking.customer;
+            document.getElementById('techSelect').value = booking.technician || 'John Miller';
+            currentAssignId = bookingId;
+            new bootstrap.Modal(document.getElementById('assignModal')).show();
+        }
+
+        // Confirm assignment
+        function confirmAssign() {
+            const tech = document.getElementById('techSelect').value;
+            const booking = bookings.find(b => b.id === currentAssignId);
+            if (booking) {
+                booking.technician = tech;
+                booking.status = 'In Process'; // auto update status
+                renderBookings();
+                addNotification(`Technician ${tech} assigned to ${booking.customer}.`);
+            }
+            bootstrap.Modal.getInstance(document.getElementById('assignModal')).hide();
+        }
+
+        // Add notification and update badge
+        function addNotification(message) {
+            notifications.push({ message, time: new Date().toLocaleTimeString() });
+            updateNotificationBadge();
+        }
+
+        function updateNotificationBadge() {
+            document.getElementById('notifBadge').innerText = notifications.length;
+        }
+
+        function showNotifications() {
+            const listDiv = document.getElementById('notificationList');
+            if (notifications.length === 0) {
+                listDiv.innerHTML = '<p class="text-muted text-center">No new notifications</p>';
+            } else {
+                let items = '';
+                notifications.slice().reverse().forEach(n => {
+                    items += `<div class="border-bottom p-2"><small class="text-primary">${n.time}</small><p class="mb-0">${n.message}</p></div>`;
+                });
+                listDiv.innerHTML = items;
+            }
+        }
+
+        // Payment history with filters
+        function showPaymentHistory() {
+            // Reset filters when opening
+            document.getElementById('paymentDateFilter').value = '';
+            document.getElementById('paymentPhoneFilter').value = '';
+            paymentDateFilter = '';
+            paymentPhoneFilter = '';
+            applyPaymentFilters();
+        }
+
+        function applyPaymentFilters() {
+            paymentDateFilter = document.getElementById('paymentDateFilter').value;
+            paymentPhoneFilter = document.getElementById('paymentPhoneFilter').value.trim();
+
+            let filtered = bookings.filter(b => b.status === 'Closed' && b.paidAmount != null);
+
+            if (paymentDateFilter) {
+                filtered = filtered.filter(b => b.date === paymentDateFilter);
+            }
+            if (paymentPhoneFilter) {
+                filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter));
+            }
+
+            const listDiv = document.getElementById('paymentHistoryList');
+            if (filtered.length === 0) {
+                listDiv.innerHTML = '<p class="text-muted text-center">No payment records found.</p>';
+                return;
+            }
+
+            let tableHtml = '<table class="table table-sm table-bordered"><thead class="table-light"><tr><th>Customer</th><th>Phone</th><th>Date</th><th>Amount</th><th>Tech</th><th>Method</th></tr></thead><tbody>';
+            filtered.forEach(b => {
+                tableHtml += `<tr><td>${b.customer}</td><td>${b.phone}</td><td>${b.date}</td><td>₹${b.paidAmount}</td><td>${b.technician || '—'}</td><td>${b.paymentMethod || '—'}</td></tr>`;
+            });
+            tableHtml += '</tbody></table>';
+            listDiv.innerHTML = tableHtml;
+        }
+
+        function clearPaymentFilters() {
+            document.getElementById('paymentDateFilter').value = '';
+            document.getElementById('paymentPhoneFilter').value = '';
+            paymentDateFilter = '';
+            paymentPhoneFilter = '';
+            applyPaymentFilters();
+        }
+
+        // Simulate a technician closing a job (random)
+        function simulateTechnicianClose() {
+            const openJobs = bookings.filter(b => b.status !== 'Closed');
+            if (openJobs.length === 0) {
+                showAlert('No open/in-process jobs to close.', 'Info');
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * openJobs.length);
+            const job = openJobs[randomIndex];
+            job.status = 'Closed';
+            // Simulate random paid amount and payment method
+            job.paidAmount = Math.floor(Math.random() * 1500) + 500;
+            job.paymentMethod = Math.random() > 0.5 ? 'Cash' : 'Online';
+            renderBookings();
+            addNotification(`Job for ${job.customer} (${job.service}) was closed by technician. Amount: ₹${job.paidAmount} (${job.paymentMethod})`);
+            showAlert(`Job ${job.customer} closed.`, 'Technician update');
+        }
+
+        // ----- Admin Auth & Logout -----
+        function toggleAdminAuth(showSignup) {
+            document.getElementById('loginCard').classList.toggle('hidden', showSignup);
+            document.getElementById('signupCard').classList.toggle('hidden', !showSignup);
+        }
+
+        function adminLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+            if (!email || !pass) {
+                showAlert('Enter credentials', 'Login');
+                return;
+            }
+            adminProfile.email = email;
+            adminProfile.name = email.split('@')[0] || 'Admin';
+            updateAdminDisplay();
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            renderBookings();
+            addNotification('Welcome back, Admin.');
+        }
+
+        function adminSignup() {
+            const name = document.getElementById('regAdminName').value.trim();
+            const email = document.getElementById('regAdminEmail').value.trim();
+            const pass = document.getElementById('regAdminPassword').value.trim();
+            if (!name || !email || !pass) {
+                showAlert('All fields required', 'Sign up');
+                return;
+            }
+            adminProfile.name = name;
+            adminProfile.email = email;
+            updateAdminDisplay();
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            renderBookings();
+            addNotification('Account created. Welcome!');
+        }
+
+        function showLogoutConfirm() {
+            new bootstrap.Modal(document.getElementById('logoutConfirmModal')).show();
+        }
+
+        function performLogout() {
+            bootstrap.Modal.getInstance(document.getElementById('logoutConfirmModal')).hide();
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('authSection').classList.remove('hidden');
+            notifications = [];
+            updateNotificationBadge();
+        }
+
+        // Expose functions to global scope
+        window.toggleAdminAuth = toggleAdminAuth;
+        window.adminLogin = adminLogin;
+        window.adminSignup = adminSignup;
+        window.showLogoutConfirm = showLogoutConfirm;
+        window.performLogout = performLogout;
+        window.populateAdminProfile = populateAdminProfile;
+        window.saveAdminProfile = saveAdminProfile;
+        window.openAssignModal = openAssignModal;
+        window.confirmAssign = confirmAssign;
+        window.showNotifications = showNotifications;
+        window.showPaymentHistory = showPaymentHistory;
+        window.applyPaymentFilters = applyPaymentFilters;
+        window.clearPaymentFilters = clearPaymentFilters;
+        window.simulateTechnicianClose = simulateTechnicianClose;
+        window.filterBookings = filterBookings;
+        window.applyDateFilter = applyDateFilter;
+        window.clearDateFilter = clearDateFilter;
+
+        // Initialize
+        window.onload = function() {
+            updateAdminDisplay();
+            renderBookings();
+            updateNotificationBadge();
+        };
+    })();
+</script>
+</body>
+</html>
