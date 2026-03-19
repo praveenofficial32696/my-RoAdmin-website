@@ -3,87 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Rhythm RO · Admin</title>
+    <title>Rhythm RO · premium admin</title>
+    <!-- Bootstrap & icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
         :root {
-            --rhythm-blue: #0077b6;
-            --rhythm-light-bg: #f0f4f8;
-            --status-open: #0ea5e9;
-            --status-process: #f59e0b;
-            --status-closed: #10b981;
+            --bg-subtle: #f6f9fc;
+            --surface: #ffffff;
+            --primary: #0f2b4b;
+            --primary-soft: #1e3a5f;
+            --accent: #2b6c9e;
+            --accent-light: #eaf3fc;
+            --success: #0b6b4f;
+            --success-bg: #f1f5f9;
+            --warning: #a66907;
+            --warning-bg: #fff1d6;
+            --danger: #b23b3b;
+            --gray-light: #eef2f6;
+            --text-main: #1c2f41;
+            --text-muted: #5b6f82;
+            --shadow-sm: 0 8px 20px -6px rgba(0,20,40,0.12), 0 2px 6px rgba(0,0,0,0.02);
+            --shadow-card: 0 15px 30px -12px rgba(0,32,64,0.15);
+            --radius-card: 24px;
+            --radius-btn: 60px;
+            --transition: all 0.2s ease;
         }
         body {
-            background-color: var(--rhythm-light-bg);
+            background: var(--bg-subtle);
             font-family: 'Inter', system-ui, sans-serif;
-            padding-bottom: 30px;
+            color: var(--text-main);
+            padding-bottom: 32px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
-        .cursor-pointer, [onclick], .btn, .list-group-item, .nav-link, a {
-            cursor: pointer !important;
-        }
-        .btn { transition: filter 0.2s ease; }
-        .btn:hover { filter: brightness(0.95); }
-        .btn:active { filter: brightness(0.9); }
-        .btn:focus, .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(0,119,182,0.4);
-            outline: none;
-        }
+        .cursor-pointer, [onclick], .btn, .list-group-item, .nav-link, a { cursor: pointer !important; }
+
         .tech-header {
-            background: #1e293b; color: white; padding: 20px;
-            border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #0b1c2f 0%, #1b3853 100%);
+            color: white;
+            padding: 24px 16px 32px 16px;
+            border-radius: 0 0 36px 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 15px 30px -10px rgba(0,30,50,0.3);
         }
-        .status-pill {
-            font-size: 11px; font-weight: 700; padding: 4px 12px;
-            border-radius: 50px; text-transform: uppercase;
+        .tech-header .container { max-width: 600px; margin: 0 auto; }
+
+        /* updated admin badge padding */
+        .admin-badge {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(6px);
+            padding: 8px 40px 5px 30px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        .status-open { background: #e0f2fe; color: var(--status-open); }
-        .status-process { background: #ffedd5; color: var(--status-process); }
-        .status-closed { background: #dcfce7; color: var(--status-closed); }
-        .btn-rhythm {
-            background: var(--rhythm-blue); color: white;
-            border-radius: 12px; font-weight: 600; padding: 12px;
+        .profile-edit-icon {
+            color: rgba(255,255,255,0.8);
+            transition: var(--transition);
+            background: rgba(0,0,0,0.2);
+            border-radius: 30px;
+            padding: 6px 8px;
+            font-size: 0.9rem;
+            margin-left: 10px;
         }
-        .btn-rhythm:hover { background: #00669e; filter: none; }
-        .modal-dialog-centered { display: flex; align-items: center; min-height: calc(100% - 3.5rem); }
-        .hidden { display: none !important; }
-        .booking-card {
-            background: white; border-radius: 18px; padding: 15px;
-            margin-bottom: 15px; border: 1px solid #e2e8f0;
-            transition: all 0.2s;
+        .profile-edit-icon:hover { background: rgba(255,255,255,0.25); color: white; }
+
+        .header-icon-btn {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.15);
         }
-        .booking-card:hover { border-color: var(--rhythm-blue); background-color: #fafdff; }
+        .header-icon-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.03);
+        }
         .notification-badge {
-            position: absolute; top: 0; right: -6px; font-size: 10px;
+            position: absolute;
+            top: -2px;
+            right: -4px;
+            background: #e65d4f;
+            border: 2px solid #1b3853;
+            font-size: 0.7rem;
+            font-weight: 700;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        /* filter bar - nowrap, compact */
         .filter-bar {
-            background: white; border-radius: 30px; padding: 10px 15px;
-            margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 80px;
+            padding: 6px 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 12px 30px -12px rgba(0,40,70,0.2);
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            overflow: visible;
+        }
+        .filter-btn-group {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 2px;
         }
         .filter-btn-group .btn {
-            border-radius: 30px; padding: 5px 15px; font-size: 0.9rem;
+            border: none;
+            border-radius: 60px !important;
+            padding: 6px 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background: transparent;
+            color: var(--text-muted);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .filter-btn-group .btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 6px 12px -4px rgba(15,43,75,0.4);
+        }
+        .filter-btn-group .btn:not(.active):hover {
+            background: var(--gray-light);
+            color: var(--primary);
         }
         .date-filter {
-            max-width: 140px; display: inline-block;
+            border-radius: 40px !important;
+            border: 1px solid #dae2ec;
+            background: white;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            max-width: 130px;
         }
-        /* service type: bold + size 0.90rem */
+        .btn-outline-secondary {
+            border-radius: 40px;
+            border-color: #d0ddee;
+            color: var(--text-muted);
+            background: white;
+            padding: 6px 10px;
+            font-size: 0.8rem;
+        }
+        .btn-outline-secondary:hover {
+            background: var(--primary-soft);
+            border-color: var(--primary-soft);
+            color: white;
+        }
+
+        /* header search row */
+        .header-search-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            padding: 1px 8px;
+            gap: 0px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .search-wrapper input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 6px 8px;
+            font-size: 0.9rem;
+            min-width: 180px;
+        }
+        .search-wrapper input::placeholder { color: rgba(255,255,255,0.6); }
+        .search-wrapper input:focus { outline: none; }
+        .search-wrapper i { color: white; font-size: 1.1rem; padding: 0 4px; }
+
+        /* booking cards - base 0.85rem, customer name 0.9rem */
+        .booking-card {
+            background: var(--surface);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(0,30,50,0.06);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        .booking-card:hover {
+            box-shadow: var(--shadow-card);
+            border-color: transparent;
+            background: #ffffff;
+        }
+        .booking-card strong {  /* customer name */
+            font-size: 0.9rem;
+        }
+        .status-pill {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 60px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+        .status-open { background: #e0f0fe; color: #136b9c; }
+        .status-process { background: #fff0d9; color: #a45f15; }
+        .status-closed { background: #dff3e9; color: #0b6b4f; }
+
         .service-type-small {
-            font-size: 0.90rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: var(--gray-light);
+            padding: 4px 14px;
+            border-radius: 40px;
+            color: var(--primary);
+        }
+        /* paid badge - background removed */
+        .paid-badge {
+            background: none;
+            color: #0b6b4f;
+            font-weight: 700;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            border: none;
+            box-shadow: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            white-space: nowrap;
+        }
+        .paid-badge::before {
+            content: "+";
+            font-weight: 800;
+            margin-right: 2px;
+            font-size: 1rem;
+            color: #0b6b4f;
+        }
+        .booking-card .btn-outline-primary {
+            border-radius: 40px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 18px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: white;
+        }
+        .booking-card .btn-outline-primary:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .clickable-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.85rem;
+        }
+        .clickable-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .info-icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-left: 8px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .info-icon:hover { transform: scale(1.15); color: var(--primary); }
+
+        /* modals */
+        .modal-content {
+            border: none;
+            border-radius: 32px !important;
+            box-shadow: 0 30px 60px -20px rgba(0,20,40,0.4);
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+        }
+        .modal-header { border: none; padding-bottom: 0; }
+        .modal-footer { border: none; }
+        .modal .btn {
+            border-radius: 40px;
+            padding: 10px 24px;
             font-weight: 600;
         }
-        /* elegant paid amount badge */
-        .paid-amount-corner {
-            text-align: right;
-            margin-top: 8px;
+        .modal .btn-primary { background: var(--primary); border: none; }
+        .modal .btn-primary:hover { background: var(--primary-soft); }
+
+        /* auth cards */
+        #authSection .card {
+            border: none;
+            border-radius: 36px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 30px 50px -30px rgba(0,20,30,0.3);
+            padding: 28px 24px;
         }
-        .paid-amount-corner span {
-            background-color: #dcfce7;
-            color: #0f7b5a;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-block;
+        #authSection .form-control {
+            border-radius: 60px;
+            padding: 14px 20px;
+            border: 1px solid #e0eaf2;
+            background: white;
+        }
+        .btn-rhythm {
+            background: var(--accent);
+            color: #ffffff;
+            border-radius: 60px;
+            padding: 14px 24px;
+            font-weight: 700;
+            border: none;
+            box-shadow: 0 8px 18px -8px var(--accent);
+        }
+        .btn-rhythm:hover { background: #1e4a6f; }
+
+        /* payment history table and filter row */
+        .payment-filter-row {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .payment-filter-row .form-control-sm,
+        .payment-filter-row .btn-sm {
+            flex: 0 0 auto;
+        }
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 24px;
+        }
+        #paymentHistoryList .table {
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            min-width: 1000px;
+            font-size: 0.85rem;
+        }
+        #paymentHistoryList .table thead { background: var(--primary); color: white; }
+        #paymentHistoryList .table th { font-weight: 600; padding: 14px 8px; font-size: 0.85rem; }
+        #paymentHistoryList .table td { padding: 12px 8px; background: white; font-size: 0.85rem; }
+
+        #logoutConfirmModal .btn-danger { background: #c24a4a; border-radius: 60px; }
+        .hidden { display: none !important; }
+        hr { opacity: 0.2; }
+        .form-control:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(43,108,158,0.2);
+        }
+
+        @media (max-width: 480px) {
+            .filter-bar { border-radius: 40px; padding: 4px 8px; }
+            .filter-btn-group .btn { padding: 4px 8px; font-size: 0.75rem; }
+            .date-filter { max-width: 110px; padding: 4px 6px; font-size: 0.75rem; }
+            .btn-outline-secondary { padding: 4px 8px; font-size: 0.75rem; }
+            .tech-header { padding: 16px 16px 24px 16px; }
+            .booking-card { padding: 16px; }
+            .header-search-row { flex-direction: column; align-items: stretch; gap: 8px; }
+            .search-wrapper { width: 100%; }
         }
     </style>
 </head>
@@ -92,23 +387,23 @@
 <!-- ALERT MODAL -->
 <div class="modal fade" id="alertModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 p-3 text-center">
+        <div class="modal-content p-3 text-center">
             <div class="modal-body">
-                <i class="bi bi-info-circle text-primary fs-1 mb-3"></i>
+                <i class="bi bi-check-circle-fill text-primary fs-1 mb-3" style="opacity:0.8;"></i>
                 <h5 class="fw-bold" id="alertTitle">Notice</h5>
                 <p id="alertMessage" class="text-muted"></p>
-                <button type="button" class="btn btn-primary rounded-pill px-4" data-bs-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary rounded-pill px-5" data-bs-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- NOTIFICATION MODAL (list) -->
+<!-- NOTIFICATION MODAL -->
 <div class="modal fade" id="notifListModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4">
+        <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="fw-bold">Notifications</h5>
+                <h5 class="fw-bold"><i class="bi bi-bell-fill me-2" style="color:var(--accent);"></i>Notifications</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="notificationList">
@@ -118,22 +413,22 @@
     </div>
 </div>
 
-<!-- PAYMENT HISTORY MODAL (with filters) -->
+<!-- PAYMENT HISTORY MODAL (columns reordered) -->
 <div class="modal fade" id="paymentHistoryModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
             <div class="modal-header border-0">
-                <h5 class="fw-bold">Payment History</h5>
+                <h5 class="fw-bold"><i class="bi bi-cash-stack me-2" style="color:var(--success);"></i>Payment History</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="d-flex gap-2 mb-3">
-                    <input type="date" id="paymentDateFilter" class="form-control form-control-sm" placeholder="Filter by date">
-                    <input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" placeholder="Filter by phone">
+                <div class="payment-filter-row mb-3">
+                    <input type="date" id="paymentDateFilter" class="form-control form-control-sm" style="max-width:150px;" value="">
+                    <input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" style="max-width:160px;" placeholder="Filter by phone">
                     <button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button>
                     <button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button>
                 </div>
-                <div id="paymentHistoryList">
+                <div class="table-responsive-wrapper" id="paymentHistoryList">
                     <p class="text-muted text-center">Loading...</p>
                 </div>
             </div>
@@ -141,10 +436,35 @@
     </div>
 </div>
 
-<!-- PROFILE EDIT MODAL (admin) -->
+<!-- SPARE PARTS & COMMENTS MODAL -->
+<div class="modal fade" id="sparePartsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold"><i class="bi bi-info-circle me-2 text-primary"></i>Job details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Booking ID:</strong> <span id="modalBookingId"></span></p>
+                <p><strong>Customer:</strong> <span id="modalCustomer"></span></p>
+                <p><strong>RO Model:</strong> <span id="modalRoModel"></span></p>
+                <hr>
+                <p><strong>Spare parts used:</strong></p>
+                <p id="modalSpareParts" class="text-muted"></p>
+                <p><strong>Technician comments:</strong></p>
+                <p id="modalComments" class="text-muted"></p>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-primary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROFILE EDIT MODAL -->
 <div class="modal fade" id="profileModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 p-3">
+        <div class="modal-content p-3">
             <div class="modal-header border-0">
                 <h5 class="fw-bold">Edit Profile</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -160,8 +480,8 @@
                 </div>
             </div>
             <div class="modal-footer border-0">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" onclick="saveAdminProfile()">Save</button>
+                <button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary rounded-pill px-4" onclick="saveAdminProfile()">Save</button>
             </div>
         </div>
     </div>
@@ -170,23 +490,40 @@
 <!-- ASSIGN TECHNICIAN MODAL -->
 <div class="modal fade" id="assignModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 p-3">
+        <div class="modal-content p-3">
             <div class="modal-header border-0">
-                <h5 class="fw-bold">Assign Technician</h5>
+                <h5 class="fw-bold"><i class="bi bi-tools me-2"></i>Assign Technician</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>Booking: <span id="assignBookingName"></span></p>
-                <select class="form-select" id="techSelect">
-                    <option value="John Miller">John Miller</option>
-                    <option value="Sarah K.">Sarah K.</option>
-                    <option value="Mike Chen">Mike Chen</option>
-                    <option value="Priya R.">Priya R.</option>
-                </select>
+                <p class="fw-medium">Booking: <span class="fw-bold" id="assignBookingName"></span></p>
+                <select class="form-select rounded-pill" id="techSelect"></select>
             </div>
             <div class="modal-footer border-0">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" onclick="confirmAssign()">Assign</button>
+                <button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary rounded-pill px-4" onclick="confirmAssign()">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MANAGE TECHNICIANS MODAL -->
+<div class="modal fade" id="manageTechModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header border-0">
+                <h5 class="fw-bold"><i class="bi bi-person-plus me-2"></i>Manage Technicians</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 d-flex gap-2">
+                    <input type="text" class="form-control" id="newTechName" placeholder="New technician name">
+                    <button class="btn btn-primary" onclick="addTechnician()">Add</button>
+                </div>
+                <ul class="list-group" id="techList"></ul>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -195,9 +532,9 @@
 <!-- LOGOUT CONFIRMATION MODAL -->
 <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-4 p-3 text-center">
+        <div class="modal-content p-3 text-center">
             <div class="modal-body">
-                <i class="bi bi-exclamation-circle text-warning fs-1 mb-3"></i>
+                <i class="bi bi-box-arrow-right fs-1 text-danger mb-3"></i>
                 <h5 class="fw-bold">Logout?</h5>
                 <p class="text-muted">Are you sure you want to end your session?</p>
                 <div class="d-flex gap-2 mt-4">
@@ -210,62 +547,82 @@
 </div>
 
 <!-- AUTH SECTION -->
-<div id="authSection" class="container mt-5" style="max-width: 400px;">
+<div id="authSection" class="container mt-5" style="max-width: 420px;">
     <div class="text-center mb-4">
-        <h3 class="fw-bold text-primary">Admin Portal</h3>
-        <p class="text-muted">Rhythm RO · Manage Bookings</p>
+        <h3 class="fw-bold" style="color: var(--primary);">⚡ Rhythm RO</h3>
+        <p class="text-muted">Admin. Manage Bookings</p>
     </div>
-    <div id="loginCard" class="card border-0 shadow-sm p-4 rounded-4">
+    <div id="loginCard" class="card">
         <input type="email" class="form-control mb-3" id="loginEmail" placeholder="Email" value="admin@ro.com">
         <input type="password" class="form-control mb-4" id="loginPassword" placeholder="Password" value="admin123">
         <button onclick="adminLogin()" class="btn btn-rhythm w-100">Login to Dashboard</button>
-        <p class="text-center mt-3 small">New Admin? <a href="#" onclick="toggleAdminAuth(true); return false;">Sign Up</a></p>
+        <p class="text-center mt-3 small">New Admin? <a href="#" onclick="toggleAdminAuth(true); return false;" style="color: var(--accent); font-weight:600;">Sign Up</a></p>
     </div>
-    <div id="signupCard" class="card border-0 shadow-sm p-4 rounded-4 hidden">
+    <div id="signupCard" class="card hidden">
         <input type="text" class="form-control mb-2" id="regAdminName" placeholder="Full Name">
         <input type="email" class="form-control mb-2" id="regAdminEmail" placeholder="Email">
         <input type="password" class="form-control mb-4" id="regAdminPassword" placeholder="Password">
         <button onclick="adminSignup()" class="btn btn-rhythm w-100">Create Account</button>
-        <p class="text-center mt-3 small">Already have account? <a href="#" onclick="toggleAdminAuth(false); return false;">Login</a></p>
+        <p class="text-center mt-3 small">Already have account? <a href="#" onclick="toggleAdminAuth(false); return false;" style="color: var(--accent); font-weight:600;">Login</a></p>
     </div>
 </div>
 
 <!-- ADMIN DASHBOARD -->
 <div id="dashboard" class="hidden">
     <div class="tech-header">
-        <div class="container" style="max-width: 600px;">
+        <div class="container">
             <div class="d-flex justify-content-between align-items-start">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center admin-badge">
                     <div>
                         <h5 class="mb-0 fw-bold" id="adminDisplayName">Admin</h5>
                         <small class="opacity-75" id="adminDisplayEmail">admin@ro.com</small>
                     </div>
                     <i class="bi bi-pencil-square profile-edit-icon cursor-pointer ms-2" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="populateAdminProfile()"></i>
                 </div>
-                <div class="d-flex gap-3 align-items-center position-relative">
-                    <i class="bi bi-cash-stack fs-4 cursor-pointer" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history"></i>
-                    <i class="bi bi-bell fs-4 cursor-pointer" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge" id="notifBadge" style="font-size: 0.6rem;">0</span>
-                    <i class="bi bi-box-arrow-right fs-4 cursor-pointer" onclick="showLogoutConfirm()"></i>
+                <div class="d-flex gap-2 align-items-center position-relative">
+                    <div class="position-relative">
+                        <div class="header-icon-btn" onclick="openManageTechModal()" data-bs-toggle="modal" data-bs-target="#manageTechModal" title="Manage technicians">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+                    </div>
+                    <div class="position-relative">
+                        <div class="header-icon-btn" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                    </div>
+                    <div class="position-relative">
+                        <div class="header-icon-btn" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <span class="position-absolute notification-badge" id="notifBadge">0</span>
+                    </div>
+                    <div class="header-icon-btn" onclick="showLogoutConfirm()">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </div>
                 </div>
             </div>
-            <div class="mt-3">
-                <h6 class="fw-bold">📋 Bookings</h6>
+            <!-- Search by Booking ID row (right aligned) -->
+            <div class="header-search-row">
+                <h6 class="fw-bold" style="letter-spacing:-0.2px;"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6>
+                <div class="search-wrapper">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchBookingId" placeholder="Search by Booking ID" oninput="applyFilters()">
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container" style="max-width: 600px;">
-        <!-- Filter bar -->
-        <div class="filter-bar d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <!-- Filter bar with dynamic counts (compact single line) -->
+        <div class="filter-bar">
             <div class="filter-btn-group btn-group" role="group">
-                <button type="button" class="btn btn-outline-primary active" onclick="filterBookings('All')">All</button>
-                <button type="button" class="btn btn-outline-primary" onclick="filterBookings('Open')">Open</button>
-                <button type="button" class="btn btn-outline-primary" onclick="filterBookings('In Process')">In Process</button>
-                <button type="button" class="btn btn-outline-primary" onclick="filterBookings('Closed')">Closed</button>
+                <button type="button" class="btn active" id="filterAll" onclick="filterBookings('All')">All</button>
+                <button type="button" class="btn" id="filterOpen" onclick="filterBookings('Open')">Open</button>
+                <button type="button" class="btn" id="filterProcess" onclick="filterBookings('In Process')">In Process</button>
+                <button type="button" class="btn" id="filterClosed" onclick="filterBookings('Closed')">Closed</button>
             </div>
             <div class="d-flex gap-2">
-                <input type="date" id="filterDate" class="form-control form-control-sm date-filter" value="2025-04-01" onchange="applyDateFilter()">
+                <input type="date" id="filterDate" class="form-control form-control-sm date-filter" value="" onchange="applyDateFilter()">
                 <button class="btn btn-sm btn-outline-secondary" onclick="clearDateFilter()">✕</button>
             </div>
         </div>
@@ -273,9 +630,11 @@
         <!-- Booking list -->
         <div id="bookingList"></div>
 
-        <!-- Simulate technician close (for demo) -->
-        <div class="text-center mt-3 mb-4">
-            <button class="btn btn-sm btn-outline-secondary" onclick="simulateTechnicianClose()">⚡ Simulate Job Closed (by technician)</button>
+        <!-- Simulate technician close -->
+        <div class="text-center mt-4 mb-5">
+            <button class="btn btn-outline-secondary rounded-pill px-4 py-2" style="border-color: var(--accent); color: var(--accent);" onclick="simulateTechnicianClose()">
+                <i class="bi bi-arrow-repeat me-2"></i>Simulate Job Closed (tech)
+            </button>
         </div>
     </div>
 </div>
@@ -289,31 +648,26 @@
             email: 'admin@ro.com'
         };
 
-        // Sample bookings (jobs) from customers with dates, paid amounts, and payment methods
+        let technicians = ['John Miller', 'Sarah K.', 'Mike Chen', 'Priya R.'];
+
+        // Enhanced bookings with roModel, bookingId, spareParts, comments
         let bookings = [
-            { id: 1, customer: 'Mathika', phone: '9840011223', address: '#404 QA Street', service: 'Installation', status: 'Open', technician: null, date: '2025-04-01', paidAmount: null, paymentMethod: null },
-            { id: 2, customer: 'Rajesh', phone: '9003055667', address: '#12 Garden View', service: 'Service', status: 'In Process', technician: 'John Miller', date: '2025-04-02', paidAmount: null, paymentMethod: null },
-            { id: 3, customer: 'Priya', phone: '9876543210', address: '#55 Lake Road', service: 'Repair', status: 'Open', technician: null, date: '2025-04-03', paidAmount: null, paymentMethod: null },
-            { id: 4, customer: 'Anand', phone: '9123456789', address: '#7 Gandhi St', service: 'Installation', status: 'Closed', technician: 'Sarah K.', date: '2025-03-28', paidAmount: 1250, paymentMethod: 'Cash' },
-            { id: 5, customer: 'Lakshmi', phone: '9988776655', address: '#22 MG Road', service: 'Service', status: 'Closed', technician: 'Mike Chen', date: '2025-04-01', paidAmount: 800, paymentMethod: 'Online' },
-            { id: 6, customer: 'Venkat', phone: '9090909090', address: '#88 Park View', service: 'Installation', status: 'In Process', technician: 'Priya R.', date: '2025-04-03', paidAmount: null, paymentMethod: null }
+            { id: 1, customer: 'Mathika', phone: '9840011223', address: '#404 QA Street', service: 'Installation', status: 'Open', technician: null, date: '2025-04-01', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand Plus', bookingId: 'RHY001', spareParts: null, comments: null },
+            { id: 2, customer: 'Rajesh', phone: '9003055667', address: '#12 Garden View', service: 'Service', status: 'In Process', technician: 'John Miller', date: '2025-04-02', paidAmount: null, paymentMethod: null, roModel: 'AquaSure', bookingId: 'RHY002', spareParts: null, comments: null },
+            { id: 3, customer: 'Priya', phone: '9876543210', address: '#55 Lake Road', service: 'Repair', status: 'Open', technician: null, date: '2025-04-03', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand', bookingId: 'RHY003', spareParts: null, comments: null },
+            { id: 4, customer: 'Anand', phone: '9123456789', address: '#7 Gandhi St', service: 'Installation', status: 'Closed', technician: 'Sarah K.', date: '2025-03-28', paidAmount: 1250, paymentMethod: 'Cash', roModel: 'Livpure', bookingId: 'RHY004', spareParts: ['Sediment filter', 'Carbon block'], comments: 'Customer requested quick installation.' },
+            { id: 5, customer: 'Lakshmi', phone: '9988776655', address: '#22 MG Road', service: 'Service', status: 'Closed', technician: 'Mike Chen', date: '2025-04-01', paidAmount: 800, paymentMethod: 'Online', roModel: 'Kent Grand Plus', bookingId: 'RHY005', spareParts: ['Pre-filter', 'Post-carbon'], comments: 'Annual maintenance done.' },
+            { id: 6, customer: 'Venkat', phone: '9090909090', address: '#88 Park View', service: 'Installation', status: 'In Process', technician: 'Priya R.', date: '2025-04-03', paidAmount: null, paymentMethod: null, roModel: 'AO Smith', bookingId: 'RHY006', spareParts: null, comments: null }
         ];
 
-        // Notifications array
         let notifications = [];
-
-        // Current filter state
         let currentStatusFilter = 'All';
-        let currentDateFilter = null; // null or date string YYYY-MM-DD
-
-        // To store the booking id currently being assigned
+        let currentDateFilter = null;
+        let currentSearchId = '';
         let currentAssignId = null;
-
-        // Payment history filters
         let paymentDateFilter = '';
         let paymentPhoneFilter = '';
 
-        // ----- Helper functions -----
         function showAlert(msg, title = 'Notice') {
             document.getElementById('alertMessage').innerText = msg;
             document.getElementById('alertTitle').innerText = title;
@@ -334,13 +688,9 @@
             const newName = document.getElementById('adminName').value.trim();
             const newEmail = document.getElementById('adminEmail').value.trim();
             if (!newName || !newEmail) {
-                // Hide profile modal first, then show alert
-                const profileModalEl = document.getElementById('profileModal');
-                const modalInstance = bootstrap.Modal.getInstance(profileModalEl);
+                const modalInstance = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
                 if (modalInstance) modalInstance.hide();
-                setTimeout(() => {
-                    showAlert('Name and email are required', 'Cannot save');
-                }, 200);
+                setTimeout(() => showAlert('Name and email are required', 'Cannot save'), 200);
                 return;
             }
             adminProfile.name = newName;
@@ -350,10 +700,30 @@
             showAlert('Profile updated', 'Success');
         }
 
-        // Filtering logic
+        // Update tab counts based on current date and search filters only (ignoring status filter)
+        function updateTabCounts() {
+            // Base filtered by date and search only (no status)
+            let baseFiltered = bookings;
+            if (currentDateFilter) {
+                baseFiltered = baseFiltered.filter(b => b.date === currentDateFilter);
+            }
+            if (currentSearchId) {
+                baseFiltered = baseFiltered.filter(b => b.bookingId.toLowerCase().includes(currentSearchId));
+            }
+
+            const total = baseFiltered.length;
+            const openCount = baseFiltered.filter(b => b.status === 'Open').length;
+            const processCount = baseFiltered.filter(b => b.status === 'In Process').length;
+            const closedCount = baseFiltered.filter(b => b.status === 'Closed').length;
+
+            document.getElementById('filterAll').innerHTML = `All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${total}</span>`;
+            document.getElementById('filterOpen').innerHTML = `Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${openCount}</span>`;
+            document.getElementById('filterProcess').innerHTML = `In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${processCount}</span>`;
+            document.getElementById('filterClosed').innerHTML = `Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${closedCount}</span>`;
+        }
+
         function filterBookings(status) {
             currentStatusFilter = status;
-            // Update active button
             document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             applyFilters();
@@ -372,93 +742,158 @@
         }
 
         function applyFilters() {
+            currentSearchId = document.getElementById('searchBookingId').value.trim().toLowerCase();
             renderBookings();
         }
 
-        // Render booking cards with filters
+        function showSpareParts(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+            document.getElementById('modalBookingId').innerText = booking.bookingId;
+            document.getElementById('modalCustomer').innerText = booking.customer;
+            document.getElementById('modalRoModel').innerText = booking.roModel;
+            const spareList = booking.spareParts ? booking.spareParts.join(', ') : '—';
+            document.getElementById('modalSpareParts').innerText = spareList;
+            document.getElementById('modalComments').innerText = booking.comments || '—';
+            new bootstrap.Modal(document.getElementById('sparePartsModal')).show();
+        }
+
         function renderBookings() {
             let filtered = bookings;
 
-            // Status filter
             if (currentStatusFilter !== 'All') {
                 filtered = filtered.filter(b => b.status === currentStatusFilter);
             }
-
-            // Date filter (exact match on date)
             if (currentDateFilter) {
                 filtered = filtered.filter(b => b.date === currentDateFilter);
+            }
+            if (currentSearchId) {
+                filtered = filtered.filter(b => b.bookingId.toLowerCase().includes(currentSearchId));
             }
 
             const container = document.getElementById('bookingList');
             if (filtered.length === 0) {
                 container.innerHTML = '<p class="text-muted text-center">No bookings match filters.</p>';
-                return;
-            }
+            } else {
+                let html = '';
+                filtered.forEach(b => {
+                    const statusClass = b.status === 'Open' ? 'status-open' : (b.status === 'In Process' ? 'status-process' : 'status-closed');
+                    const paidBadge = (b.status === 'Closed' && b.paidAmount != null) ? 
+                        `<span class="paid-badge"> ₹${b.paidAmount} paid</span>` : '';
+                    
+                    const phoneLink = `tel:${b.phone}`;
+                    const addressLink = `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
+                    const infoIcon = `<i class="bi bi-info-circle info-icon" onclick="showSpareParts(${b.id})" title="View details"></i>`;
 
-            let html = '';
-            filtered.forEach(b => {
-                const statusClass = b.status === 'Open' ? 'status-open' : (b.status === 'In Process' ? 'status-process' : 'status-closed');
-                // Paid amount bottom right – now as an elegant badge
-                const paidDisplay = (b.status === 'Closed' && b.paidAmount != null) ? `<div class="paid-amount-corner"><span>₹${b.paidAmount} paid</span></div>` : '';
-                html += `
-                    <div class="booking-card">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <strong>${b.customer}</strong> <span class="status-pill ${statusClass}">${b.status}</span>
+                    // Button text changes based on status: "Assign" for Open, "Reassign" for In Process
+                    const buttonText = b.status === 'In Process' ? 'Reassign' : 'Assign';
+
+                    html += `
+                        <div class="booking-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong>${b.customer}</strong> ${infoIcon}
+                                    <span class="status-pill ${statusClass}">${b.status}</span>
+                                </div>
+                                <span class="service-type-small">${b.service} | ${b.date}</span>
                             </div>
-                            <small class="text-muted service-type-small">${b.service} | ${b.date}</small>
+                            <div class="small text-muted mt-1"><i class="bi bi-upc-scan"></i> Booking ID: ${b.bookingId}</div>
+                            <div class="small text-muted mt-2">
+                                <i class="bi bi-telephone"></i> <a href="${phoneLink}" class="clickable-link">${b.phone}</a>
+                            </div>
+                            <div class="small text-muted">
+                                <i class="bi bi-geo-alt"></i> <a href="${addressLink}" target="_blank" class="clickable-link">${b.address}</a>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span><i class="bi bi-person-badge"></i> Tech: ${b.technician || '—'}</span>
+                                ${b.status !== 'Closed' ? `<button class="btn btn-outline-primary btn-sm" onclick="openAssignModal(${b.id})">${buttonText}</button>` : paidBadge}
+                            </div>
                         </div>
-                        <div class="small text-muted mt-1"><i class="bi bi-telephone"></i> ${b.phone}</div>
-                        <div class="small text-muted"><i class="bi bi-geo-alt"></i> ${b.address}</div>
-                        <div class="d-flex justify-content-between align-items-center mt-2">
-                            <span><i class="bi bi-person-badge"></i> Tech: ${b.technician || '—'}</span>
-                            ${b.status !== 'Closed' ? `<button class="btn btn-sm btn-outline-primary" onclick="openAssignModal(${b.id})">Assign</button>` : ''}
-                        </div>
-                        ${paidDisplay}
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            // update tab counts after each render
+            updateTabCounts();
         }
 
-        // Open assign modal for a booking
+        function populateTechSelect() {
+            const select = document.getElementById('techSelect');
+            select.innerHTML = '';
+            technicians.forEach(tech => {
+                const option = document.createElement('option');
+                option.value = tech;
+                option.textContent = tech;
+                select.appendChild(option);
+            });
+        }
+
         function openAssignModal(bookingId) {
             const booking = bookings.find(b => b.id === bookingId);
             if (!booking) return;
             document.getElementById('assignBookingName').innerText = booking.customer;
-            document.getElementById('techSelect').value = booking.technician || 'John Miller';
+            populateTechSelect();
+            if (booking.technician) {
+                document.getElementById('techSelect').value = booking.technician;
+            }
             currentAssignId = bookingId;
             new bootstrap.Modal(document.getElementById('assignModal')).show();
         }
 
-        // Confirm assignment
         function confirmAssign() {
             const tech = document.getElementById('techSelect').value;
             const booking = bookings.find(b => b.id === currentAssignId);
             if (booking) {
                 booking.technician = tech;
-                booking.status = 'In Process'; // auto update status
+                booking.status = 'In Process';
                 renderBookings();
                 addNotification(`Technician ${tech} assigned to ${booking.customer}.`);
+                // Show success alert
+                showAlert(`Technician ${tech} assigned to ${booking.customer}`, 'Success');
             }
             bootstrap.Modal.getInstance(document.getElementById('assignModal')).hide();
         }
 
-        // Add notification and update badge
+        function openManageTechModal() { renderTechList(); }
+        function renderTechList() {
+            const list = document.getElementById('techList');
+            list.innerHTML = '';
+            technicians.forEach((tech, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `${tech} <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="removeTechnician(${index})"><i class="bi bi-trash"></i></button>`;
+                list.appendChild(li);
+            });
+        }
+        function addTechnician() {
+            const input = document.getElementById('newTechName');
+            const name = input.value.trim();
+            if (name && !technicians.includes(name)) {
+                technicians.push(name);
+                input.value = '';
+                renderTechList();
+                addNotification(`Technician ${name} added.`);
+            } else if (technicians.includes(name)) showAlert('Technician already exists', 'Notice');
+        }
+        function removeTechnician(index) {
+            if (technicians.length > 1) {
+                const removed = technicians.splice(index, 1)[0];
+                renderTechList();
+                addNotification(`Technician ${removed} removed.`);
+            } else showAlert('At least one technician required', 'Cannot remove');
+        }
+
         function addNotification(message) {
             notifications.push({ message, time: new Date().toLocaleTimeString() });
             updateNotificationBadge();
         }
-
         function updateNotificationBadge() {
             document.getElementById('notifBadge').innerText = notifications.length;
         }
-
         function showNotifications() {
             const listDiv = document.getElementById('notificationList');
-            if (notifications.length === 0) {
-                listDiv.innerHTML = '<p class="text-muted text-center">No new notifications</p>';
-            } else {
+            if (notifications.length === 0) listDiv.innerHTML = '<p class="text-muted text-center">No new notifications</p>';
+            else {
                 let items = '';
                 notifications.slice().reverse().forEach(n => {
                     items += `<div class="border-bottom p-2"><small class="text-primary">${n.time}</small><p class="mb-0">${n.message}</p></div>`;
@@ -467,9 +902,7 @@
             }
         }
 
-        // Payment history with filters
         function showPaymentHistory() {
-            // Reset filters when opening
             document.getElementById('paymentDateFilter').value = '';
             document.getElementById('paymentPhoneFilter').value = '';
             paymentDateFilter = '';
@@ -483,12 +916,8 @@
 
             let filtered = bookings.filter(b => b.status === 'Closed' && b.paidAmount != null);
 
-            if (paymentDateFilter) {
-                filtered = filtered.filter(b => b.date === paymentDateFilter);
-            }
-            if (paymentPhoneFilter) {
-                filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter));
-            }
+            if (paymentDateFilter) filtered = filtered.filter(b => b.date === paymentDateFilter);
+            if (paymentPhoneFilter) filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter));
 
             const listDiv = document.getElementById('paymentHistoryList');
             if (filtered.length === 0) {
@@ -496,11 +925,18 @@
                 return;
             }
 
-            let tableHtml = '<table class="table table-sm table-bordered"><thead class="table-light"><tr><th>Customer</th><th>Phone</th><th>Date</th><th>Amount</th><th>Tech</th><th>Method</th></tr></thead><tbody>';
+            // Reordered columns: Booking ID, Customer, Phone, Date, Tech, Spare Parts, Comments, Amount, Method
+            let tableHtml = `<div class="table-responsive-wrapper"><table class="table table-sm table-bordered"><thead class="table-light">
+                <tr><th>Booking ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></tr></thead><tbody>`;
             filtered.forEach(b => {
-                tableHtml += `<tr><td>${b.customer}</td><td>${b.phone}</td><td>${b.date}</td><td>₹${b.paidAmount}</td><td>${b.technician || '—'}</td><td>${b.paymentMethod || '—'}</td></tr>`;
+                const spare = b.spareParts ? b.spareParts.join(', ') : '—';
+                tableHtml += `<tr>
+                    <td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${b.date}</td>
+                    <td>${b.technician || '—'}</td><td>${spare}</td><td>${b.comments || '—'}</td>
+                    <td>₹${b.paidAmount}</td><td>${b.paymentMethod || '—'}</td>
+                </tr>`;
             });
-            tableHtml += '</tbody></table>';
+            tableHtml += '</tbody></table></div>';
             listDiv.innerHTML = tableHtml;
         }
 
@@ -512,25 +948,21 @@
             applyPaymentFilters();
         }
 
-        // Simulate a technician closing a job (random)
         function simulateTechnicianClose() {
             const openJobs = bookings.filter(b => b.status !== 'Closed');
-            if (openJobs.length === 0) {
-                showAlert('No open/in-process jobs to close.', 'Info');
-                return;
-            }
+            if (openJobs.length === 0) { showAlert('No open/in-process jobs to close.', 'Info'); return; }
             const randomIndex = Math.floor(Math.random() * openJobs.length);
             const job = openJobs[randomIndex];
             job.status = 'Closed';
-            // Simulate random paid amount and payment method
             job.paidAmount = Math.floor(Math.random() * 1500) + 500;
             job.paymentMethod = Math.random() > 0.5 ? 'Cash' : 'Online';
+            job.spareParts = ['Membrane', 'Filter'];
+            job.comments = 'Routine replacement done.';
             renderBookings();
-            addNotification(`Job for ${job.customer} (${job.service}) was closed by technician. Amount: ₹${job.paidAmount} (${job.paymentMethod})`);
+            addNotification(`Job for ${job.customer} (${job.service}) was closed. Amount: ₹${job.paidAmount} (${job.paymentMethod})`);
             showAlert(`Job ${job.customer} closed.`, 'Technician update');
         }
 
-        // ----- Admin Auth & Logout -----
         function toggleAdminAuth(showSignup) {
             document.getElementById('loginCard').classList.toggle('hidden', showSignup);
             document.getElementById('signupCard').classList.toggle('hidden', !showSignup);
@@ -539,10 +971,7 @@
         function adminLogin() {
             const email = document.getElementById('loginEmail').value.trim();
             const pass = document.getElementById('loginPassword').value.trim();
-            if (!email || !pass) {
-                showAlert('Enter credentials', 'Login');
-                return;
-            }
+            if (!email || !pass) { showAlert('Enter credentials', 'Login'); return; }
             adminProfile.email = email;
             adminProfile.name = email.split('@')[0] || 'Admin';
             updateAdminDisplay();
@@ -556,10 +985,7 @@
             const name = document.getElementById('regAdminName').value.trim();
             const email = document.getElementById('regAdminEmail').value.trim();
             const pass = document.getElementById('regAdminPassword').value.trim();
-            if (!name || !email || !pass) {
-                showAlert('All fields required', 'Sign up');
-                return;
-            }
+            if (!name || !email || !pass) { showAlert('All fields required', 'Sign up'); return; }
             adminProfile.name = name;
             adminProfile.email = email;
             updateAdminDisplay();
@@ -569,10 +995,7 @@
             addNotification('Account created. Welcome!');
         }
 
-        function showLogoutConfirm() {
-            new bootstrap.Modal(document.getElementById('logoutConfirmModal')).show();
-        }
-
+        function showLogoutConfirm() { new bootstrap.Modal(document.getElementById('logoutConfirmModal')).show(); }
         function performLogout() {
             bootstrap.Modal.getInstance(document.getElementById('logoutConfirmModal')).hide();
             document.getElementById('dashboard').classList.add('hidden');
@@ -581,7 +1004,7 @@
             updateNotificationBadge();
         }
 
-        // Expose functions to global scope
+        // Expose functions globally
         window.toggleAdminAuth = toggleAdminAuth;
         window.adminLogin = adminLogin;
         window.adminSignup = adminSignup;
@@ -599,12 +1022,17 @@
         window.filterBookings = filterBookings;
         window.applyDateFilter = applyDateFilter;
         window.clearDateFilter = clearDateFilter;
+        window.openManageTechModal = openManageTechModal;
+        window.addTechnician = addTechnician;
+        window.removeTechnician = removeTechnician;
+        window.showSpareParts = showSpareParts;
+        window.applyFilters = applyFilters; // <-- FIX: expose applyFilters for search input
 
-        // Initialize
         window.onload = function() {
             updateAdminDisplay();
-            renderBookings();
+            renderBookings(); // also calls updateTabCounts
             updateNotificationBadge();
+            populateTechSelect();
         };
     })();
 </script>
