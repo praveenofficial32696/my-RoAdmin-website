@@ -56,7 +56,7 @@
             background: rgba(255,255,255,0.12);
             backdrop-filter: blur(6px);
             padding: 8px 20px 5px 20px;
-            border-radius: 60px;
+            border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.2);
             display: inline-flex;
             align-items: center;
@@ -229,9 +229,11 @@
             padding: 2px 6px;
             border-radius: 60px;
             border: 1px solid rgba(255,255,255,0.2);
-            min-width: 180px;
-            flex: 1 1 auto;
-            max-width: 240px;
+            min-width: 140px;
+            width: auto;
+            flex: 0 1 auto;
+            max-width: 190px;
+            position: relative;
         }
         .search-wrapper input {
             background: transparent;
@@ -241,7 +243,10 @@
             font-size: 0.8rem;
             width: 100%;
         }
-        .search-wrapper input::placeholder { color: rgba(255,255,255,0.6); }
+        .search-wrapper input::placeholder { 
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+        }
         .search-wrapper input:focus { outline: none; }
         .search-wrapper i { color: white; font-size: 1rem; padding: 0 4px; }
 
@@ -430,7 +435,7 @@
         }
         .btn-rhythm:hover { background: #1e4a6f; }
 
-        /* Payment history */
+        /* Payment History - Mobile Optimized Card View */
         .payment-filter-row {
             display: flex;
             flex-wrap: wrap;
@@ -438,6 +443,95 @@
             padding-bottom: 8px;
             align-items: center;
         }
+        
+        .payment-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .payment-card {
+            background: white;
+            border-radius: 20px;
+            padding: 14px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .payment-card:hover {
+            box-shadow: var(--shadow-card);
+        }
+        .payment-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .payment-booking-id {
+            font-weight: 800;
+            color: var(--primary);
+            background: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        .payment-amount {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--success);
+        }
+        .payment-detail-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #f0f2f5;
+        }
+        .payment-detail-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            min-width: 55px;
+        }
+        .payment-detail-value {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            word-break: break-word;
+            flex: 1;
+        }
+        .payment-method-badge {
+            background: #e8f0fe;
+            color: var(--accent);
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .payment-phone {
+            font-family: monospace;
+            font-size: 0.8rem;
+            background: #f5f7fa;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        @media (max-width: 640px) {
+            .payment-desktop-table { display: none; }
+            .payment-mobile-cards { display: block; }
+            #paymentHistoryModal .modal-dialog { max-width: 95%; margin: 0.5rem auto; min-width: auto; }
+            .payment-filter-row input, .payment-filter-row button { font-size: 0.75rem; padding: 6px 10px; }
+        }
+        @media (min-width: 641px) {
+            .payment-desktop-table { display: block; }
+            .payment-mobile-cards { display: none; }
+        }
+        
         .table-responsive-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -448,26 +542,18 @@
         #paymentHistoryList .table {
             border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            min-width: 900px;
+            min-width: 700px;
             font-size: 0.85rem;
             margin-bottom: 0;
         }
         #paymentHistoryList .table thead { background: var(--primary); color: white; }
-        #paymentHistoryList .table th { font-weight: 600; padding: 14px 10px; font-size: 0.85rem; white-space: nowrap; border-bottom: none; }
-        #paymentHistoryList .table td { padding: 12px 10px; background: white; font-size: 0.85rem; vertical-align: middle; border-color: #edf2f7; }
+        #paymentHistoryList .table th { font-weight: 600; padding: 12px 8px; font-size: 0.8rem; white-space: nowrap; border-bottom: none; }
+        #paymentHistoryList .table td { padding: 10px 8px; background: white; font-size: 0.8rem; vertical-align: middle; border-color: #edf2f7; }
 
-        #paymentHistoryModal .modal-dialog {
-            max-width: 900px;
-            width: 90%;
-            transition: none;
-            resize: both;
-            overflow: hidden;
-            min-width: 500px;
-            min-height: 400px;
-        }
-        #paymentHistoryModal .modal-content { height: 100%; display: flex; flex-direction: column; }
-        #paymentHistoryModal .modal-body { flex: 1; overflow-y: auto; max-height: calc(80vh - 120px); }
-        .resize-handle { position: absolute; bottom: 0; right: 0; width: 30px; height: 30px; cursor: nwse-resize; z-index: 10; display: flex; align-items: flex-end; justify-content: flex-end; padding: 5px; pointer-events: none; }
+        #paymentHistoryModal .modal-dialog { max-width: 900px; width: 90%; transition: none; min-width: 300px; }
+        #paymentHistoryModal .modal-content { height: auto; max-height: 85vh; display: flex; flex-direction: column; }
+        #paymentHistoryModal .modal-body { flex: 1; overflow-y: auto; max-height: calc(85vh - 100px); }
+        .resize-handle { display: none; }
 
         #logoutConfirmModal .btn-danger { background: #c24a4a; border-radius: 60px; }
         .hidden { display: none !important; }
@@ -477,19 +563,18 @@
             box-shadow: 0 0 0 4px rgba(43,108,158,0.2);
         }
 
-        /* Mobile optimization */
         @media (max-width: 480px) {
             .tech-header { padding: 12px 12px 24px; }
-            .admin-badge { padding: 4px 10px; }
-            .admin-badge h5 { font-size: 0.9rem; }
+            .admin-badge { padding: 4px 12px; border-radius: 16px; }
+            .admin-badge h5 { font-size: 0.85rem; }
             .admin-badge small { font-size: 0.65rem; }
             .header-icon-btn { width: 34px; height: 34px; font-size: 1rem; }
             .header-top-icons { display: flex; gap: 6px; align-items: center; }
             .header-search-row { flex-direction: row; align-items: center; justify-content: space-between; margin-top: 12px; gap: 8px; }
             .header-search-row h6 { font-size: 0.75rem; white-space: normal; flex: 1; }
-            .search-wrapper { max-width: 160px; min-width: auto; flex: 0 1 auto; }
-            .mobile-logout-btn { background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border-radius: 40px; padding: 6px 10px; display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; color: white; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
-            .mobile-logout-btn i { font-size: 0.8rem; }
+            .search-wrapper { max-width: 140px; min-width: 110px; width: auto; flex: 0 1 auto; }
+            .mobile-logout-btn { background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border-radius: 50%; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; color: white; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
+            .mobile-logout-btn span { display: none; }
             .desktop-logout-btn { display: none; }
             .filter-tabs-row { border-radius: 40px; padding: 4px 6px; }
             .filter-btn-group .btn { padding: 4px 6px; font-size: 0.7rem; flex: 1 1 auto; }
@@ -502,6 +587,35 @@
             .modal-dialog { margin: 0.5rem auto; max-width: 95%; }
         }
         @media (min-width: 481px) { .mobile-logout-btn { display: none; } .desktop-logout-btn { display: flex; } }
+        
+        .field-validation-popup {
+            position: fixed;
+            background: var(--danger);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 10px;
+            white-space: nowrap;
+            z-index: 1060;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            pointer-events: none;
+            animation: fadeInUp 0.2s ease;
+        }
+        .field-validation-popup::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 16px;
+            border-width: 6px 6px 0 6px;
+            border-style: solid;
+            border-color: var(--danger) transparent transparent transparent;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .complaint-phone-wrapper { position: relative; }
     </style>
 </head>
 <body>
@@ -535,19 +649,23 @@
 
 <!-- PAYMENT HISTORY MODAL -->
 <div class="modal fade" id="paymentHistoryModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-cash-stack me-2"></i>Payment History</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
             <div class="modal-body">
-                <div class="payment-filter-row mb-3"><input type="date" id="paymentDateFilter" class="form-control form-control-sm"><input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" placeholder="Filter by phone"><button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button><button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button></div>
-                <div class="table-responsive-wrapper" id="paymentHistoryList"><p class="text-muted text-center">Loading...</p></div>
+                <div class="payment-filter-row mb-3">
+                    <input type="date" id="paymentDateFilter" class="form-control form-control-sm" style="flex:1;">
+                    <input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" placeholder="Phone" style="flex:1;">
+                    <button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button>
+                </div>
+                <div id="paymentHistoryList"><p class="text-muted text-center">Loading...</p></div>
             </div>
-            <div class="resize-handle"><i class="bi bi-arrows-angle-expand"></i></div>
         </div>
     </div>
 </div>
 
-<!-- SPARE PARTS & COMMENTS MODAL with Warranty Section -->
+<!-- SPARE PARTS & COMMENTS MODAL -->
 <div class="modal fade" id="sparePartsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
@@ -597,12 +715,15 @@
         <div class="modal-content p-3">
             <div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Register Complaint</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
             <div class="modal-body">
-                <div class="mb-3"><label class="form-label small fw-bold">Customer Name *</label><input type="text" class="form-control" id="complaintCusName" placeholder="Full name"></div>
-                <div class="mb-3"><label class="form-label small fw-bold">Phone Number *</label><input type="tel" class="form-control" id="complaintPhone" placeholder="10 digit mobile"></div>
-                <div class="mb-3"><label class="form-label small fw-bold">RO Model *</label><input type="text" class="form-control" id="complaintRoModel" placeholder="e.g., Kent Grand Plus"></div>
-                <div class="mb-3"><label class="form-label small fw-bold">Service Type *</label><select class="form-select" id="complaintServiceType"><option value="Installation">Installation</option><option value="Reinstallation">Reinstallation</option><option value="Service">Service</option></select></div>
+                <div class="mb-3"><label class="form-label small fw-bold">Customer Name</label><input type="text" class="form-control" id="complaintCusName" placeholder="Optional"></div>
+                <div class="mb-3 complaint-phone-wrapper">
+                    <label class="form-label small fw-bold">Phone Number <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="complaintPhone" placeholder="Mandatory field">
+                </div>
+                <div class="mb-3"><label class="form-label small fw-bold">RO Model</label><input type="text" class="form-control" id="complaintRoModel" placeholder="Optional"></div>
+                <div class="mb-3"><label class="form-label small fw-bold">Service Type</label><select class="form-select" id="complaintServiceType"><option value="Installation">Installation</option><option value="Reinstallation">Reinstallation</option><option value="Service">Service</option></select></div>
             </div>
-            <div class="modal-footer border-0"><button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-danger rounded-pill px-4" onclick="raiseComplaint()">Raise Complaint</button></div>
+            <div class="modal-footer border-0"><button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-danger rounded-pill px-4" onclick="validateAndRaiseComplaint()">Raise Complaint</button></div>
         </div>
     </div>
 </div>
@@ -612,7 +733,7 @@
 
 <!-- ADMIN DASHBOARD -->
 <div id="dashboard" class="hidden">
-    <div class="tech-header"><div class="container"><div class="d-flex justify-content-between align-items-start flex-wrap gap-2"><div class="d-flex align-items-center admin-badge"><div><h5 class="mb-0 fw-bold" id="adminDisplayName">Admin</h5><small class="opacity-75" id="adminDisplayEmail">admin@ro.com</small></div><i class="bi bi-pencil-square profile-edit-icon cursor-pointer" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="populateAdminProfile()"></i></div><div class="d-flex gap-2 align-items-center header-top-icons"><div class="position-relative"><div class="header-icon-btn" data-bs-toggle="modal" data-bs-target="#complaintModal" title="Raise Complaint"><i class="bi bi-chat-right-text-fill"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="openManageTechModal()" data-bs-toggle="modal" data-bs-target="#manageTechModal" title="Manage technicians"><i class="bi bi-person-plus"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history"><i class="bi bi-cash-stack"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal"><i class="bi bi-bell"></i></div><span class="position-absolute notification-badge" id="notifBadge">0</span></div><div class="desktop-logout-btn header-icon-btn" onclick="showLogoutConfirm()"><i class="bi bi-box-arrow-right"></i></div></div></div><div class="header-search-row"><h6 class="fw-bold"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6><div class="search-wrapper"><i class="bi bi-search"></i><input type="text" id="searchBookingId" placeholder="Search by ID" oninput="applyFilters()"></div><div class="mobile-logout-btn" onclick="showLogoutConfirm()"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></div></div></div></div>
+    <div class="tech-header"><div class="container"><div class="d-flex justify-content-between align-items-start flex-wrap gap-2"><div class="d-flex align-items-center admin-badge"><div><h5 class="mb-0 fw-bold" id="adminDisplayName">Admin</h5><small class="opacity-75" id="adminDisplayEmail">admin@ro.com</small></div><i class="bi bi-pencil-square profile-edit-icon cursor-pointer" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="populateAdminProfile()"></i></div><div class="d-flex gap-2 align-items-center header-top-icons"><div class="position-relative"><div class="header-icon-btn" data-bs-toggle="modal" data-bs-target="#complaintModal" title="Raise Complaint"><i class="bi bi-chat-right-text-fill"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="openManageTechModal()" data-bs-toggle="modal" data-bs-target="#manageTechModal" title="Manage technicians"><i class="bi bi-person-plus"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history"><i class="bi bi-cash-stack"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal"><i class="bi bi-bell"></i></div><span class="position-absolute notification-badge" id="notifBadge">0</span></div><div class="desktop-logout-btn header-icon-btn" onclick="showLogoutConfirm()"><i class="bi bi-box-arrow-right"></i></div></div></div><div class="header-search-row"><h6 class="fw-bold"><i class="bi bi-calendar-check me-2"></i>Today's Bookings</h6><div class="search-wrapper"><i class="bi bi-search"></i><input type="text" id="globalSearchInput" placeholder="ID, Name, Phone" oninput="applyFilters()"></div><div class="mobile-logout-btn" onclick="showLogoutConfirm()"><i class="bi bi-box-arrow-right"></i><span>Logout</span></div></div></div></div>
     <div class="container" style="max-width: 600px;">
         <div class="filter-section">
             <div class="filter-tabs-row">
@@ -634,7 +755,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     (function() {
-        // ----- Data stores -----
+        // ----- Data stores (unchanged) -----
         let adminProfile = { name: 'Admin User', email: 'admin@ro.com' };
         let technicians = ['John Miller', 'Sarah K.', 'Mike Chen', 'Priya R.'];
         let bookings = [
@@ -648,7 +769,7 @@
         let notifications = [];
         let currentStatusFilter = 'All';
         let currentDateFilter = null;
-        let currentSearchId = '';
+        let currentSearchQuery = '';
         let currentAssignId = null;
         let paymentDateFilter = '';
         let paymentPhoneFilter = '';
@@ -659,13 +780,33 @@
         function updateAdminDisplay() { document.getElementById('adminDisplayName').innerText = adminProfile.name; document.getElementById('adminDisplayEmail').innerText = adminProfile.email; }
         function populateAdminProfile() { document.getElementById('adminName').value = adminProfile.name; document.getElementById('adminEmail').value = adminProfile.email; }
         function saveAdminProfile() { const n = document.getElementById('adminName').value.trim(); const e = document.getElementById('adminEmail').value.trim(); if (n && e) { adminProfile.name = n; adminProfile.email = e; updateAdminDisplay(); bootstrap.Modal.getInstance(document.getElementById('profileModal')).hide(); showAlert('Profile updated', 'Success'); } else showAlert('Name and email are required'); }
-        function updateTabCounts() { let base = bookings; if (currentDateFilter) base = base.filter(b => b.date === currentDateFilter); if (currentSearchId) base = base.filter(b => b.bookingId.toLowerCase().includes(currentSearchId)); const total = base.length, open = base.filter(b => b.status === 'Open').length, process = base.filter(b => b.status === 'In Process').length, closed = base.filter(b => b.status === 'Closed').length; document.getElementById('filterAll').innerHTML = `All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${total}</span>`; document.getElementById('filterOpen').innerHTML = `Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${open}</span>`; document.getElementById('filterProcess').innerHTML = `In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${process}</span>`; document.getElementById('filterClosed').innerHTML = `Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${closed}</span>`; }
+        
+        function updateTabCounts() { 
+            let base = bookings;
+            if (currentDateFilter) base = base.filter(b => b.date === currentDateFilter);
+            if (currentSearchQuery) {
+                const query = currentSearchQuery.toLowerCase();
+                base = base.filter(b => 
+                    b.bookingId.toLowerCase().includes(query) || 
+                    b.customer.toLowerCase().includes(query) || 
+                    b.phone.includes(query)
+                );
+            }
+            const total = base.length, open = base.filter(b => b.status === 'Open').length, process = base.filter(b => b.status === 'In Process').length, closed = base.filter(b => b.status === 'Closed').length; 
+            document.getElementById('filterAll').innerHTML = `All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${total}</span>`; 
+            document.getElementById('filterOpen').innerHTML = `Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${open}</span>`; 
+            document.getElementById('filterProcess').innerHTML = `In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${process}</span>`; 
+            document.getElementById('filterClosed').innerHTML = `Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${closed}</span>`; 
+        }
+        
         function filterBookings(status) { currentStatusFilter = status; document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active')); if (event) event.target.classList.add('active'); applyFilters(); }
         function applyDateFilter() { const val = document.getElementById('filterDateDesktop')?.value || document.getElementById('filterDateMobile')?.value || ''; if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = val; if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = val; currentDateFilter = val || null; applyFilters(); }
         function clearDateFilter() { if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = ''; if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = ''; currentDateFilter = null; applyFilters(); }
-        function applyFilters() { currentSearchId = document.getElementById('searchBookingId').value.trim().toLowerCase(); renderBookings(); }
+        function applyFilters() { 
+            currentSearchQuery = document.getElementById('globalSearchInput').value.trim(); 
+            renderBookings(); 
+        }
         
-        // Enhanced showSpareParts with warranty display for Installation-type closed jobs
         function showSpareParts(bookingId) { 
             const b = bookings.find(bk => bk.id === bookingId); 
             if (b) { 
@@ -675,8 +816,6 @@
                 document.getElementById('modalServiceType').innerText = b.service;
                 document.getElementById('modalSpareParts').innerText = b.spareParts ? b.spareParts.join(', ') : '—'; 
                 document.getElementById('modalComments').innerText = b.comments || '—';
-                
-                // Show warranty details only for Installation type with Closed status and warranty data exists
                 const warrantyContainer = document.getElementById('warrantyDetailsContainer');
                 if (b.service === 'Installation' && b.status === 'Closed' && b.warrantyFrom && b.warrantyTo) {
                     document.getElementById('modalWarrantyFrom').innerText = formatDateDDMMYYYY(b.warrantyFrom);
@@ -693,7 +832,14 @@
             let filtered = bookings;
             if (currentStatusFilter !== 'All') filtered = filtered.filter(b => b.status === currentStatusFilter);
             if (currentDateFilter) filtered = filtered.filter(b => b.date === currentDateFilter);
-            if (currentSearchId) filtered = filtered.filter(b => b.bookingId.toLowerCase().includes(currentSearchId));
+            if (currentSearchQuery) {
+                const query = currentSearchQuery.toLowerCase();
+                filtered = filtered.filter(b => 
+                    b.bookingId.toLowerCase().includes(query) || 
+                    b.customer.toLowerCase().includes(query) || 
+                    b.phone.includes(query)
+                );
+            }
             const container = document.getElementById('bookingList');
             if (filtered.length === 0) { container.innerHTML = '<p class="text-muted text-center">No bookings match filters.</p>'; } 
             else {
@@ -714,32 +860,37 @@
             updateTabCounts();
         }
 
-        window.raiseComplaint = function() {
-            const cusName = document.getElementById('complaintCusName').value.trim();
-            const phone = document.getElementById('complaintPhone').value.trim();
-            const roModel = document.getElementById('complaintRoModel').value.trim();
+        function removeValidationPopup() { const existing = document.querySelector('.field-validation-popup'); if (existing) existing.remove(); }
+        function showPhoneValidationPopup(inputElement) {
+            removeValidationPopup();
+            const rect = inputElement.getBoundingClientRect();
+            const popup = document.createElement('div');
+            popup.className = 'field-validation-popup';
+            popup.innerText = 'Phone number is required';
+            popup.style.top = (rect.top - 38) + 'px';
+            popup.style.left = rect.left + 'px';
+            document.body.appendChild(popup);
+            setTimeout(() => { if(popup && popup.remove) popup.remove(); }, 2500);
+        }
+
+        window.validateAndRaiseComplaint = function() {
+            const phoneInput = document.getElementById('complaintPhone');
+            const phoneValue = phoneInput.value.trim();
+            if (!phoneValue) { showPhoneValidationPopup(phoneInput); return; }
+            const cusName = document.getElementById('complaintCusName').value.trim() || 'Anonymous';
+            const roModel = document.getElementById('complaintRoModel').value.trim() || 'Not specified';
             const serviceType = document.getElementById('complaintServiceType').value;
-            if (!cusName || !phone || !roModel || !serviceType) { showAlert('All fields required.', 'Missing Info'); return; }
-            if (!/^\d{10,}$/.test(phone)) { showAlert('Valid phone number required.', 'Invalid'); return; }
             const newId = bookings.length + 10;
             const newBookingId = `CMP${nextComplaintId++}`;
             const today = new Date().toISOString().slice(0,10);
-            const newComplaintBooking = {
-                id: newId, customer: cusName, phone: phone, address: 'Complaint registered - address to be updated',
-                service: serviceType, status: 'Open', technician: null, date: today, paidAmount: null,
-                paymentMethod: null, roModel: roModel, bookingId: newBookingId, spareParts: null,
-                comments: 'Complaint raised by admin', isComplaint: true, warrantyFrom: null, warrantyTo: null
-            };
-            bookings.push(newComplaintBooking);
-            document.getElementById('complaintCusName').value = ''; document.getElementById('complaintPhone').value = '';
-            document.getElementById('complaintRoModel').value = ''; document.getElementById('complaintServiceType').value = 'Installation';
+            bookings.push({ id: newId, customer: cusName, phone: phoneValue, address: 'Complaint registered - address to be updated', service: serviceType, status: 'Open', technician: null, date: today, paidAmount: null, paymentMethod: null, roModel: roModel, bookingId: newBookingId, spareParts: null, comments: 'Complaint raised by admin', isComplaint: true, warrantyFrom: null, warrantyTo: null });
+            document.getElementById('complaintCusName').value = ''; document.getElementById('complaintPhone').value = ''; document.getElementById('complaintRoModel').value = ''; document.getElementById('complaintServiceType').value = 'Installation';
             bootstrap.Modal.getInstance(document.getElementById('complaintModal')).hide();
             renderBookings();
             addNotification(`New complaint registered for ${cusName} (${roModel}). Booking ID: ${newBookingId}`);
             showAlert(`Complaint registered successfully! Booking ID: ${newBookingId}`, 'Complaint Raised');
         };
 
-        // Updated simulateTechnicianClose to add warranty for Installation jobs
         window.simulateTechnicianClose = function() { 
             const openJobs = bookings.filter(b => b.status !== 'Closed'); 
             if (openJobs.length === 0) { showAlert('No open/in-process jobs to close.', 'Info'); return; } 
@@ -750,21 +901,9 @@
             job.paymentMethod = Math.random() > 0.5 ? 'Cash' : 'Online'; 
             job.spareParts = ['Membrane', 'Filter']; 
             job.comments = 'Routine replacement done.';
-            // Add warranty for Installation type closed jobs
-            if (job.service === 'Installation') {
-                const today = new Date();
-                const warrantyEndDate = new Date(today);
-                warrantyEndDate.setFullYear(today.getFullYear() + 2);
-                job.warrantyFrom = today.toISOString().slice(0,10);
-                job.warrantyTo = warrantyEndDate.toISOString().slice(0,10);
-                job.comments += ' Warranty activated for 2 years.';
-            } else {
-                job.warrantyFrom = null;
-                job.warrantyTo = null;
-            }
-            renderBookings(); 
-            addNotification(`Job for ${job.customer} (${job.service}) was closed. Amount: ₹${job.paidAmount} (${job.paymentMethod})`); 
-            showAlert(`Job ${job.customer} closed.`, 'Technician update'); 
+            if (job.service === 'Installation') { const today = new Date(); const warrantyEndDate = new Date(today); warrantyEndDate.setFullYear(today.getFullYear() + 2); job.warrantyFrom = today.toISOString().slice(0,10); job.warrantyTo = warrantyEndDate.toISOString().slice(0,10); job.comments += ' Warranty activated for 2 years.'; } 
+            else { job.warrantyFrom = null; job.warrantyTo = null; }
+            renderBookings(); addNotification(`Job for ${job.customer} (${job.service}) was closed. Amount: ₹${job.paidAmount} (${job.paymentMethod})`); showAlert(`Job ${job.customer} closed.`, 'Technician update'); 
         };
 
         function populateTechSelect() { const select = document.getElementById('techSelect'); select.innerHTML = ''; technicians.forEach(tech => { const opt = document.createElement('option'); opt.value = tech; opt.textContent = tech; select.appendChild(opt); }); }
@@ -777,9 +916,30 @@
         function addNotification(message) { notifications.push({ message, time: new Date().toLocaleTimeString() }); updateNotificationBadge(); }
         function updateNotificationBadge() { document.getElementById('notifBadge').innerText = notifications.length; }
         window.showNotifications = function() { const listDiv = document.getElementById('notificationList'); if (notifications.length === 0) listDiv.innerHTML = '<p class="text-muted text-center">No new notifications</p>'; else { let items = ''; notifications.slice().reverse().forEach(n => { items += `<div class="border-bottom p-2"><small class="text-primary">${n.time}</small><p class="mb-0">${n.message}</p></div>`; }); listDiv.innerHTML = items; } };
+        
         window.showPaymentHistory = function() { document.getElementById('paymentDateFilter').value = ''; document.getElementById('paymentPhoneFilter').value = ''; paymentDateFilter = ''; paymentPhoneFilter = ''; applyPaymentFilters(); };
-        window.applyPaymentFilters = function() { paymentDateFilter = document.getElementById('paymentDateFilter').value; paymentPhoneFilter = document.getElementById('paymentPhoneFilter').value.trim(); let filtered = bookings.filter(b => b.status === 'Closed' && b.paidAmount != null); if (paymentDateFilter) filtered = filtered.filter(b => b.date === paymentDateFilter); if (paymentPhoneFilter) filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter)); const listDiv = document.getElementById('paymentHistoryList'); if (filtered.length === 0) { listDiv.innerHTML = '<p class="text-muted text-center">No payment records found.</p>'; return; } let tableHtml = `<div class="table-responsive-wrapper"><table class="table table-sm table-bordered"><thead class="table-light"><tr><th>Booking ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></tr></thead><tbody>`; filtered.forEach(b => { const spare = b.spareParts ? b.spareParts.join(', ') : '—'; const formattedDate = formatDateDDMMYYYY(b.date); tableHtml += `<tr><td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${formattedDate}</td><td>${b.technician || '—'}</td><td>${spare}</td><td>${b.comments || '—'}</td><td>₹${b.paidAmount}</td><td>${b.paymentMethod || '—'}</td></tr>`; }); tableHtml += '</tbody></table></div>'; listDiv.innerHTML = tableHtml; };
+        window.applyPaymentFilters = function() { 
+            paymentDateFilter = document.getElementById('paymentDateFilter').value; 
+            paymentPhoneFilter = document.getElementById('paymentPhoneFilter').value.trim(); 
+            let filtered = bookings.filter(b => b.status === 'Closed' && b.paidAmount != null); 
+            if (paymentDateFilter) filtered = filtered.filter(b => b.date === paymentDateFilter); 
+            if (paymentPhoneFilter) filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter)); 
+            const listDiv = document.getElementById('paymentHistoryList'); 
+            if (filtered.length === 0) { listDiv.innerHTML = '<p class="text-muted text-center">No payment records found.</p>'; return; }
+            let desktopTable = `<div class="payment-desktop-table table-responsive-wrapper"><table class="table table-sm table-bordered"><thead><th>ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></thead><tbody>`;
+            let mobileCards = `<div class="payment-mobile-cards payment-cards-container">`;
+            filtered.forEach(b => { 
+                const spare = b.spareParts ? b.spareParts.join(', ') : '—'; 
+                const formattedDate = formatDateDDMMYYYY(b.date);
+                desktopTable += `<tr><td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${formattedDate}</td><td>${b.technician || '—'}</td><td>${spare}</td><td>${b.comments || '—'}</td><td>₹${b.paidAmount}</td><td>${b.paymentMethod || '—'}</td></tr>`;
+                mobileCards += `<div class="payment-card"><div class="payment-card-header"><span class="payment-booking-id">${b.bookingId}</span><span class="payment-amount">₹${b.paidAmount}</span></div><div class="fw-bold mb-1">${b.customer}</div><div class="payment-detail-row"><span class="payment-detail-label">Phone</span><span class="payment-detail-value"><span class="payment-phone">${b.phone}</span></span></div><div class="payment-detail-row"><span class="payment-detail-label">Date</span><span class="payment-detail-value">${formattedDate}</span></div><div class="payment-detail-row"><span class="payment-detail-label">Tech</span><span class="payment-detail-value">${b.technician || '—'}</span></div><div class="payment-detail-row"><span class="payment-detail-label">Spares</span><span class="payment-detail-value">${spare}</span></div><div class="payment-detail-row"><span class="payment-detail-label">Comments</span><span class="payment-detail-value">${b.comments || '—'}</span></div><div class="payment-detail-row"><span class="payment-detail-label">Method</span><span class="payment-detail-value"><span class="payment-method-badge">${b.paymentMethod || '—'}</span></span></div></div>`;
+            });
+            desktopTable += `</tbody></table></div>`;
+            mobileCards += `</div>`;
+            listDiv.innerHTML = desktopTable + mobileCards;
+        };
         window.clearPaymentFilters = function() { document.getElementById('paymentDateFilter').value = ''; document.getElementById('paymentPhoneFilter').value = ''; paymentDateFilter = ''; paymentPhoneFilter = ''; applyPaymentFilters(); };
+        
         function toggleAdminAuth(showSignup) { document.getElementById('loginCard').classList.toggle('hidden', showSignup); document.getElementById('signupCard').classList.toggle('hidden', !showSignup); }
         window.adminLogin = function() { const email = document.getElementById('loginEmail').value.trim(); const pass = document.getElementById('loginPassword').value.trim(); if (!email || !pass) { showAlert('Enter credentials', 'Login'); return; } adminProfile.email = email; adminProfile.name = email.split('@')[0] || 'Admin'; updateAdminDisplay(); document.getElementById('authSection').classList.add('hidden'); document.getElementById('dashboard').classList.remove('hidden'); renderBookings(); addNotification('Welcome back, Admin.'); };
         window.adminSignup = function() { const name = document.getElementById('regAdminName').value.trim(); const email = document.getElementById('regAdminEmail').value.trim(); const pass = document.getElementById('regAdminPassword').value.trim(); if (!name || !email || !pass) { showAlert('All fields required', 'Sign up'); return; } adminProfile.name = name; adminProfile.email = email; updateAdminDisplay(); document.getElementById('authSection').classList.add('hidden'); document.getElementById('dashboard').classList.remove('hidden'); renderBookings(); addNotification('Account created. Welcome!'); };
