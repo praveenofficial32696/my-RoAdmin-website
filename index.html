@@ -73,16 +73,17 @@
         }
         .profile-edit-icon:hover { background: rgba(255,255,255,0.25); color: white; }
 
+        /* ===== HEADER ICONS - SMALLER FOR MOBILE ===== */
         .header-icon-btn {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(4px);
             border-radius: 50%;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: white;
             transition: var(--transition);
             border: 1px solid rgba(255,255,255,0.15);
@@ -97,21 +98,20 @@
             right: -4px;
             background: #e65d4f;
             border: 2px solid #1b3853;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            min-width: 20px;
-            height: 20px;
+            min-width: 18px;
+            height: 18px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* ===== FILTER SECTION (desktop first) ===== */
+        /* ===== FILTER SECTION ===== */
         .filter-section {
             margin-bottom: 28px;
         }
-        /* filter tabs row */
         .filter-tabs-row {
             display: flex;
             flex-wrap: wrap;
@@ -121,29 +121,29 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.6);
             border-radius: 60px;
-            padding: 6px 12px;
+            padding: 4px 8px;
             box-shadow: 0 12px 30px -12px rgba(0,40,70,0.2);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .filter-btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
+            gap: 2px;
             flex: 1 1 auto;
         }
         .filter-btn-group .btn {
             border: none;
             border-radius: 60px !important;
-            padding: 8px 16px;          /* larger touch area */
+            padding: 5px 10px;
             font-weight: 600;
-            font-size: 0.95rem;           /* increased base size */
+            font-size: 0.8rem;
             background: transparent;
             color: var(--text-muted);
             transition: var(--transition);
             white-space: nowrap;
         }
         .filter-btn-group .btn.active {
-            background: var(--primary) !important;   /* force active color */
+            background: var(--primary) !important;
             color: white;
             box-shadow: 0 6px 12px -4px rgba(15,43,75,0.4);
         }
@@ -151,14 +151,12 @@
             background: var(--gray-light);
             color: var(--primary);
         }
-        /* desktop inline date picker (hidden on mobile) */
         .date-filter-group-desktop {
             display: flex;
             align-items: center;
             gap: 4px;
             flex-shrink: 0;
         }
-        /* mobile date row (hidden on desktop) */
         .date-filter-row-mobile {
             display: none;
             width: 100%;
@@ -174,8 +172,8 @@
             border-radius: 40px !important;
             border: 1px solid #dae2ec;
             background: white;
-            font-size: 0.9rem;
-            padding: 8px 12px;
+            font-size: 0.8rem;
+            padding: 6px 10px;
             flex: 1;
         }
         .btn-outline-secondary {
@@ -183,8 +181,8 @@
             border-color: #d0ddee;
             color: var(--text-muted);
             background: white;
-            padding: 8px 14px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            font-size: 0.8rem;
         }
         .btn-outline-secondary:hover {
             background: var(--primary-soft);
@@ -204,37 +202,38 @@
         .header-search-row h6 {
             margin-bottom: 0;
             white-space: nowrap;
+            font-size: 0.9rem;
         }
         .search-wrapper {
             display: flex;
             align-items: center;
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(4px);
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 60px;
             border: 1px solid rgba(255,255,255,0.2);
-            min-width: 200px;
+            min-width: 180px;
             flex: 1 1 auto;
-            max-width: 260px;
+            max-width: 240px;
         }
         .search-wrapper input {
             background: transparent;
             border: none;
             color: white;
-            padding: 8px 8px;
-            font-size: 0.9rem;
+            padding: 6px 6px;
+            font-size: 0.8rem;
             width: 100%;
         }
         .search-wrapper input::placeholder { color: rgba(255,255,255,0.6); }
         .search-wrapper input:focus { outline: none; }
-        .search-wrapper i { color: white; font-size: 1.1rem; padding: 0 4px; }
+        .search-wrapper i { color: white; font-size: 1rem; padding: 0 4px; }
 
-        /* booking cards */
+        /* ===== BOOKING CARDS ===== */
         .booking-card {
             background: var(--surface);
             border-radius: var(--radius-card);
-            padding: 20px;
-            margin-bottom: 18px;
+            padding: 16px;
+            margin-bottom: 16px;
             border: 1px solid rgba(0,30,50,0.06);
             box-shadow: var(--shadow-sm);
             transition: var(--transition);
@@ -246,16 +245,42 @@
             background: #ffffff;
         }
         .booking-card strong { font-size: 0.9rem; }
-        .status-pill {
-            font-size: 0.75rem;
+        
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 8px;
+            width: 100%;
+        }
+        .customer-section {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            min-width: 0;
+            flex: 1;
+        }
+        .customer-name {
             font-weight: 700;
-            padding: 6px 16px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 1;
+            min-width: 60px;
+        }
+        .status-pill {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
             border-radius: 60px;
             letter-spacing: 0.3px;
             text-transform: uppercase;
-            margin-left: 8px;
+            margin-left: 6px;
             display: inline-block;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         .status-open { background: #e0f0fe; color: #136b9c; }
         .status-process { background: #fff0d9; color: #a45f15; }
@@ -263,19 +288,25 @@
 
         .service-type-small {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background: var(--gray-light);
-            padding: 4px 12px;
+            padding: 4px 8px;
             border-radius: 40px;
             color: var(--primary);
             white-space: nowrap;
+            flex-shrink: 0;
+            max-width: none;
+            overflow: visible;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
         .paid-badge {
             background: none;
             color: #0b6b4f;
             font-weight: 700;
-            padding: 6px 12px;
-            font-size: 0.85rem;
+            padding: 4px 8px;
+            font-size: 0.8rem;
             border: none;
             box-shadow: none;
             display: inline-flex;
@@ -294,10 +325,11 @@
             border-radius: 40px;
             border: 1px solid var(--accent);
             color: var(--accent);
-            padding: 6px 16px;
+            padding: 4px 12px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background: white;
+            white-space: nowrap;
         }
         .booking-card .btn-outline-primary:hover {
             background: var(--accent);
@@ -307,7 +339,7 @@
             color: var(--text-muted);
             text-decoration: none;
             transition: color 0.2s;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             word-break: break-word;
         }
         .clickable-link:hover {
@@ -316,18 +348,19 @@
         }
         .info-icon {
             color: var(--accent);
-            font-size: 1.2rem;
-            margin-left: 6px;
+            font-size: 1.1rem;
+            margin-left: 4px;
             cursor: pointer;
             transition: transform 0.1s;
             vertical-align: middle;
+            flex-shrink: 0;
         }
         .info-icon:hover { transform: scale(1.15); color: var(--primary); }
 
-        /* ===== MODAL MOBILE OPTIMIZATION ===== */
+        /* ===== MODAL - CENTERED FIX ===== */
         .modal-dialog {
-            margin: 0.5rem;
-            max-width: 400px;           /* never too wide */
+            margin: 1.75rem auto;
+            max-width: 400px;
         }
         .modal-content {
             border: none;
@@ -336,13 +369,33 @@
             background: rgba(255,255,255,0.98);
             backdrop-filter: blur(10px);
             width: 100%;
+            margin: 0 auto;
         }
-        .modal-header { border: none; padding-bottom: 0; }
-        .modal-footer { border: none; }
+        .modal-header { 
+            border: none; 
+            padding-bottom: 0;
+            text-align: left;
+        }
+        .modal-body {
+            text-align: left;
+        }
+        /* Alert modal specific - center align content */
+        #alertModal .modal-body {
+            text-align: center;
+        }
+        #alertModal .btn {
+            display: inline-block;
+            margin: 0 auto;
+        }
+        .modal-footer { 
+            border: none;
+            justify-content: flex-end;
+        }
         .modal .btn {
             border-radius: 40px;
-            padding: 12px 24px;          /* larger touch target */
+            padding: 10px 20px;
             font-weight: 600;
+            font-size: 0.9rem;
         }
         .modal .btn-primary { background: var(--primary); border: none; }
         .modal .btn-primary:hover { background: var(--primary-soft); }
@@ -354,50 +407,137 @@
             background: rgba(255,255,255,0.9);
             backdrop-filter: blur(8px);
             box-shadow: 0 30px 50px -30px rgba(0,20,30,0.3);
-            padding: 28px 24px;
+            padding: 24px 20px;
         }
         #authSection .form-control {
             border-radius: 60px;
-            padding: 14px 20px;
+            padding: 12px 16px;
             border: 1px solid #e0eaf2;
             background: white;
+            font-size: 0.9rem;
         }
         .btn-rhythm {
             background: var(--accent);
             color: #ffffff;
             border-radius: 60px;
-            padding: 14px 24px;
+            padding: 12px 20px;
             font-weight: 700;
             border: none;
             box-shadow: 0 8px 18px -8px var(--accent);
+            font-size: 0.95rem;
         }
         .btn-rhythm:hover { background: #1e4a6f; }
 
-        /* payment history table */
+        /* ===== PAYMENT HISTORY - OPTIMIZED FOR WEB ===== */
         .payment-filter-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            padding-bottom: 4px;
+            gap: 10px;
+            padding-bottom: 8px;
+            align-items: center;
         }
         .payment-filter-row .form-control-sm,
         .payment-filter-row .btn-sm {
-            flex: 0 1 auto;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            height: 38px;
+        }
+        #paymentDateFilter, #paymentPhoneFilter {
+            min-width: 140px;
         }
         .table-responsive-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            border-radius: 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.05);
+            margin-top: 15px;
         }
         #paymentHistoryList .table {
-            border-radius: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            min-width: 700px;
-            font-size: 0.8rem;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            min-width: 900px;
+            font-size: 0.85rem;
+            margin-bottom: 0;
         }
-        #paymentHistoryList .table thead { background: var(--primary); color: white; }
-        #paymentHistoryList .table th { font-weight: 600; padding: 12px 6px; font-size: 0.8rem; }
-        #paymentHistoryList .table td { padding: 10px 6px; background: white; font-size: 0.8rem; }
+        #paymentHistoryList .table thead { 
+            background: var(--primary); 
+            color: white;
+        }
+        #paymentHistoryList .table th { 
+            font-weight: 600; 
+            padding: 14px 10px; 
+            font-size: 0.85rem;
+            white-space: nowrap;
+            border-bottom: none;
+        }
+        #paymentHistoryList .table td { 
+            padding: 12px 10px; 
+            background: white; 
+            font-size: 0.85rem;
+            vertical-align: middle;
+            border-color: #edf2f7;
+        }
+        #paymentHistoryList .table tbody tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* ===== RESIZABLE MODAL FOR PAYMENT HISTORY ===== */
+        #paymentHistoryModal .modal-dialog {
+            max-width: 900px;
+            width: 90%;
+            transition: none;
+            resize: both;
+            overflow: hidden;
+            min-width: 500px;
+            min-height: 400px;
+        }
+        #paymentHistoryModal .modal-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #paymentHistoryModal .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            max-height: calc(80vh - 120px);
+        }
+        /* Resize handle */
+        #paymentHistoryModal .modal-dialog::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            cursor: nwse-resize;
+            background: linear-gradient(135deg, transparent 50%, var(--accent) 50%);
+            border-radius: 0 0 32px 0;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        #paymentHistoryModal .modal-dialog:hover::after {
+            opacity: 1;
+        }
+        /* Custom resize gripper */
+        .resize-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            cursor: nwse-resize;
+            z-index: 10;
+            color: var(--accent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 5px;
+            pointer-events: none;
+        }
+        .resize-handle i {
+            font-size: 1.2rem;
+            transform: rotate(90deg);
+        }
 
         #logoutConfirmModal .btn-danger { background: #c24a4a; border-radius: 60px; }
         .hidden { display: none !important; }
@@ -409,57 +549,131 @@
 
         /* ===== MOBILE SPECIFIC ===== */
         @media (max-width: 480px) {
-            .tech-header { padding: 16px 12px 24px; }
-            .admin-badge { padding: 6px 12px; }
+            .tech-header { padding: 12px 12px 24px; }
+            .admin-badge { padding: 4px 10px; }
+            .admin-badge h5 { font-size: 0.95rem; }
+            .admin-badge small { font-size: 0.7rem; }
+            
+            .d-flex.gap-2.align-items-center {
+                gap: 4px !important;
+            }
+            .header-icon-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+            
             .header-search-row { flex-direction: column; align-items: stretch; }
+            .header-search-row h6 { font-size: 0.85rem; }
             .search-wrapper { max-width: 100%; }
 
-            /* filter tabs: full width, increased font */
             .filter-tabs-row {
                 border-radius: 40px;
-                padding: 8px;
-                margin-bottom: 8px;
+                padding: 4px 6px;
+                margin-bottom: 6px;
             }
             .filter-btn-group {
                 justify-content: center;
                 width: 100%;
             }
             .filter-btn-group .btn {
-                padding: 8px 12px;
-                font-size: 0.9rem;          /* larger on mobile */
+                padding: 4px 6px;
+                font-size: 0.7rem;
                 flex: 1 1 auto;
             }
-            /* hide desktop date group */
+            .filter-btn-group .btn .badge {
+                font-size: 0.6rem;
+                margin-left: 2px;
+            }
             .date-filter-group-desktop {
                 display: none;
             }
-            /* show mobile date row */
             .date-filter-row-mobile {
                 display: block;
             }
             .date-filter {
-                font-size: 0.9rem;
-                padding: 10px 12px;
+                font-size: 0.8rem;
+                padding: 8px 10px;
             }
             .btn-outline-secondary {
-                padding: 10px 16px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
             }
 
-            .booking-card { padding: 16px; }
-            .booking-card strong { font-size: 0.9rem; }
-            .service-type-small { font-size: 0.75rem; padding: 4px 8px; }
-            .status-pill { padding: 4px 10px; font-size: 0.7rem; margin-left: 6px; }
-            .paid-badge { padding: 4px 8px; }
+            .booking-card { padding: 12px; }
+            .customer-name { 
+                max-width: 80px; 
+                font-size: 0.85rem; 
+            }
+            .status-pill { 
+                padding: 3px 6px; 
+                font-size: 0.6rem; 
+            }
+            .service-type-small { 
+                font-size: 0.65rem; 
+                padding: 3px 6px;
+                max-width: none;
+                white-space: nowrap;
+            }
+            .service-type-small .date-part {
+                display: inline-block;
+                margin-left: 2px;
+            }
+            .paid-badge { 
+                padding: 3px 6px; 
+                font-size: 0.7rem; 
+            }
+            .booking-card .btn-outline-primary { 
+                padding: 3px 8px; 
+                font-size: 0.65rem; 
+            }
 
-            /* modals take 95% width on very small screens */
             .modal-dialog {
                 margin: 0.5rem auto;
                 max-width: 95%;
             }
+            
+            .list-group-item {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .list-group-item .btn-sm {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+            /* Payment history mobile optimization */
+            .payment-filter-row {
+                gap: 6px;
+            }
+            .payment-filter-row .form-control-sm,
+            .payment-filter-row .btn-sm {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+                height: 34px;
+            }
+            #paymentDateFilter, #paymentPhoneFilter {
+                min-width: 120px;
+            }
+            #paymentHistoryList .table {
+                min-width: 700px;
+                font-size: 0.7rem;
+            }
+            
+            /* Resizable modal on mobile */
+            #paymentHistoryModal .modal-dialog {
+                min-width: 95%;
+                width: 95%;
+                resize: none;
+            }
+            #paymentHistoryModal .modal-dialog::after {
+                display: none;
+            }
         }
         @media (max-width: 360px) {
-            .filter-btn-group .btn { font-size: 0.85rem; padding: 6px 6px; }
-            .booking-card .d-flex { flex-wrap: wrap; gap: 6px; }
+            .filter-btn-group .btn { font-size: 0.6rem; padding: 3px 4px; }
+            .customer-name { max-width: 70px; }
+            .service-type-small { font-size: 0.6rem; }
         }
     </style>
 </head>
@@ -494,7 +708,7 @@
     </div>
 </div>
 
-<!-- PAYMENT HISTORY MODAL -->
+<!-- PAYMENT HISTORY MODAL - WITH RESIZE FEATURE -->
 <div class="modal fade" id="paymentHistoryModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -512,6 +726,10 @@
                 <div class="table-responsive-wrapper" id="paymentHistoryList">
                     <p class="text-muted text-center">Loading...</p>
                 </div>
+            </div>
+            <!-- Resize handle indicator (visual only) -->
+            <div class="resize-handle">
+                <i class="bi bi-arrows-angle-expand"></i>
             </div>
         </div>
     </div>
@@ -684,7 +902,7 @@
             </div>
             <!-- Search by Booking ID row -->
             <div class="header-search-row">
-                <h6 class="fw-bold" style="letter-spacing:-0.2px;"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6>
+                <h6 class="fw-bold"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6>
                 <div class="search-wrapper">
                     <i class="bi bi-search"></i>
                     <input type="text" id="searchBookingId" placeholder="Search by Booking ID" oninput="applyFilters()">
@@ -759,6 +977,16 @@
         let paymentDateFilter = '';
         let paymentPhoneFilter = '';
 
+        // Helper function to format date from YYYY-MM-DD to DD-MM-YYYY
+        function formatDateDDMMYYYY(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+            return dateStr;
+        }
+
         function showAlert(msg, title = 'Notice') {
             document.getElementById('alertMessage').innerText = msg;
             document.getElementById('alertTitle').innerText = title;
@@ -813,15 +1041,12 @@
 
         function filterBookings(status) {
             currentStatusFilter = status;
-            // remove active from all tabs
             document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active'));
-            // add active to clicked button (using event)
             if (event) event.target.classList.add('active');
             applyFilters();
         }
 
         function applyDateFilter() {
-            // sync both desktop & mobile inputs
             const desktopVal = document.getElementById('filterDateDesktop')?.value;
             const mobileVal = document.getElementById('filterDateMobile')?.value;
             const dateValue = desktopVal || mobileVal || '';
@@ -881,17 +1106,22 @@
                     const phoneLink = `tel:${b.phone}`;
                     const addressLink = `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
                     const infoIcon = `<i class="bi bi-info-circle info-icon" onclick="showSpareParts(${b.id})" title="View details"></i>`;
-
                     const buttonText = b.status === 'In Process' ? 'Reassign' : 'Assign';
+                    
+                    // Format date to DD-MM-YYYY
+                    const formattedDate = formatDateDDMMYYYY(b.date);
 
                     html += `
                         <div class="booking-card">
-                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-1">
-                                <div>
-                                    <strong>${b.customer}</strong> ${infoIcon}
+                            <div class="card-header-row">
+                                <div class="customer-section">
+                                    <span class="customer-name">${b.customer}</span>
+                                    ${infoIcon}
                                     <span class="status-pill ${statusClass}">${b.status}</span>
                                 </div>
-                                <span class="service-type-small">${b.service} | ${b.date}</span>
+                                <span class="service-type-small" title="${b.service} | ${formattedDate}">
+                                    ${b.service} <span class="date-part">| ${formattedDate}</span>
+                                </span>
                             </div>
                             <div class="small text-muted mt-1"><i class="bi bi-upc-scan"></i> Booking ID: ${b.bookingId}</div>
                             <div class="small text-muted mt-2">
@@ -1023,8 +1253,9 @@
                 <tr><th>Booking ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></tr></thead><tbody>`;
             filtered.forEach(b => {
                 const spare = b.spareParts ? b.spareParts.join(', ') : '—';
+                const formattedDate = formatDateDDMMYYYY(b.date);
                 tableHtml += `<tr>
-                    <td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${b.date}</td>
+                    <td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${formattedDate}</td>
                     <td>${b.technician || '—'}</td><td>${spare}</td><td>${b.comments || '—'}</td>
                     <td>₹${b.paidAmount}</td><td>${b.paymentMethod || '—'}</td>
                 </tr>`;
@@ -1125,6 +1356,16 @@
             renderBookings();
             updateNotificationBadge();
             populateTechSelect();
+            
+            // Initialize resizable modal
+            const paymentModal = document.getElementById('paymentHistoryModal');
+            if (paymentModal) {
+                const dialog = paymentModal.querySelector('.modal-dialog');
+                if (dialog) {
+                    dialog.style.resize = 'both';
+                    dialog.style.overflow = 'hidden';
+                }
+            }
         };
     })();
 </script>
