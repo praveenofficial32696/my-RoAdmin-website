@@ -52,11 +52,10 @@
         }
         .tech-header .container { max-width: 600px; margin: 0 auto; }
 
-        /* updated admin badge padding */
         .admin-badge {
             background: rgba(255,255,255,0.12);
             backdrop-filter: blur(6px);
-            padding: 8px 20px 5px 20px;  /* balanced padding */
+            padding: 8px 20px 5px 20px;
             border-radius: 60px;
             border: 1px solid rgba(255,255,255,0.2);
             display: inline-flex;
@@ -108,40 +107,43 @@
             justify-content: center;
         }
 
-        /* filter bar - nowrap, compact, fully visible on mobile */
-        .filter-bar {
+        /* ===== FILTER SECTION (desktop first) ===== */
+        .filter-section {
+            margin-bottom: 28px;
+        }
+        /* filter tabs row */
+        .filter-tabs-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
             background: rgba(255,255,255,0.8);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255,255,255,0.6);
             border-radius: 60px;
             padding: 6px 12px;
-            margin-bottom: 28px;
             box-shadow: 0 12px 30px -12px rgba(0,40,70,0.2);
-            display: flex;
-            flex-wrap: wrap;        /* allow wrapping on very small screens, but usually single line */
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
+            margin-bottom: 12px;
         }
         .filter-btn-group {
             display: flex;
-            flex-wrap: wrap;         /* buttons can wrap if needed */
+            flex-wrap: wrap;
             gap: 4px;
             flex: 1 1 auto;
         }
         .filter-btn-group .btn {
             border: none;
             border-radius: 60px !important;
-            padding: 6px 12px;
+            padding: 8px 16px;          /* larger touch area */
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.95rem;           /* increased base size */
             background: transparent;
             color: var(--text-muted);
             transition: var(--transition);
             white-space: nowrap;
         }
         .filter-btn-group .btn.active {
-            background: var(--primary);
+            background: var(--primary) !important;   /* force active color */
             color: white;
             box-shadow: 0 6px 12px -4px rgba(15,43,75,0.4);
         }
@@ -149,27 +151,40 @@
             background: var(--gray-light);
             color: var(--primary);
         }
-        .date-filter-group {
+        /* desktop inline date picker (hidden on mobile) */
+        .date-filter-group-desktop {
             display: flex;
             align-items: center;
             gap: 4px;
             flex-shrink: 0;
         }
+        /* mobile date row (hidden on desktop) */
+        .date-filter-row-mobile {
+            display: none;
+            width: 100%;
+            margin-top: 8px;
+        }
+        .date-filter-row-mobile .date-filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
         .date-filter {
             border-radius: 40px !important;
             border: 1px solid #dae2ec;
             background: white;
-            font-size: 0.8rem;
-            padding: 6px 10px;
-            max-width: 130px;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            flex: 1;
         }
         .btn-outline-secondary {
             border-radius: 40px;
             border-color: #d0ddee;
             color: var(--text-muted);
             background: white;
-            padding: 6px 10px;
-            font-size: 0.8rem;
+            padding: 8px 14px;
+            font-size: 0.9rem;
         }
         .btn-outline-secondary:hover {
             background: var(--primary-soft);
@@ -214,7 +229,7 @@
         .search-wrapper input:focus { outline: none; }
         .search-wrapper i { color: white; font-size: 1.1rem; padding: 0 4px; }
 
-        /* booking cards - base 0.85rem, customer name 0.9rem */
+        /* booking cards */
         .booking-card {
             background: var(--surface);
             border-radius: var(--radius-card);
@@ -230,11 +245,9 @@
             border-color: transparent;
             background: #ffffff;
         }
-        .booking-card strong {  /* customer name */
-            font-size: 0.9rem;
-        }
+        .booking-card strong { font-size: 0.9rem; }
         .status-pill {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
             padding: 6px 16px;
             border-radius: 60px;
@@ -257,7 +270,6 @@
             color: var(--primary);
             white-space: nowrap;
         }
-        /* paid badge - background removed */
         .paid-badge {
             background: none;
             color: #0b6b4f;
@@ -312,19 +324,24 @@
         }
         .info-icon:hover { transform: scale(1.15); color: var(--primary); }
 
-        /* modals */
+        /* ===== MODAL MOBILE OPTIMIZATION ===== */
+        .modal-dialog {
+            margin: 0.5rem;
+            max-width: 400px;           /* never too wide */
+        }
         .modal-content {
             border: none;
             border-radius: 32px !important;
             box-shadow: 0 30px 60px -20px rgba(0,20,40,0.4);
             background: rgba(255,255,255,0.98);
             backdrop-filter: blur(10px);
+            width: 100%;
         }
         .modal-header { border: none; padding-bottom: 0; }
         .modal-footer { border: none; }
         .modal .btn {
             border-radius: 40px;
-            padding: 10px 24px;
+            padding: 12px 24px;          /* larger touch target */
             font-weight: 600;
         }
         .modal .btn-primary { background: var(--primary); border: none; }
@@ -356,7 +373,7 @@
         }
         .btn-rhythm:hover { background: #1e4a6f; }
 
-        /* payment history table and filter row */
+        /* payment history table */
         .payment-filter-row {
             display: flex;
             flex-wrap: wrap;
@@ -375,7 +392,7 @@
         #paymentHistoryList .table {
             border-radius: 24px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            min-width: 700px;        /* reduced from 1000 to fit better */
+            min-width: 700px;
             font-size: 0.8rem;
         }
         #paymentHistoryList .table thead { background: var(--primary); color: white; }
@@ -390,27 +407,58 @@
             box-shadow: 0 0 0 4px rgba(43,108,158,0.2);
         }
 
-        /* MOBILE TWEAKS: improve compactness and avoid overflow */
+        /* ===== MOBILE SPECIFIC ===== */
         @media (max-width: 480px) {
             .tech-header { padding: 16px 12px 24px; }
             .admin-badge { padding: 6px 12px; }
             .header-search-row { flex-direction: column; align-items: stretch; }
             .search-wrapper { max-width: 100%; }
-            .filter-bar { flex-direction: column; align-items: stretch; border-radius: 40px; }
-            .filter-btn-group { justify-content: center; }
-            .filter-btn-group .btn { padding: 5px 8px; font-size: 0.7rem; }
-            .date-filter-group { justify-content: space-between; }
-            .date-filter { max-width: none; flex: 1; }
-            .btn-outline-secondary { padding: 6px 10px; }
+
+            /* filter tabs: full width, increased font */
+            .filter-tabs-row {
+                border-radius: 40px;
+                padding: 8px;
+                margin-bottom: 8px;
+            }
+            .filter-btn-group {
+                justify-content: center;
+                width: 100%;
+            }
+            .filter-btn-group .btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;          /* larger on mobile */
+                flex: 1 1 auto;
+            }
+            /* hide desktop date group */
+            .date-filter-group-desktop {
+                display: none;
+            }
+            /* show mobile date row */
+            .date-filter-row-mobile {
+                display: block;
+            }
+            .date-filter {
+                font-size: 0.9rem;
+                padding: 10px 12px;
+            }
+            .btn-outline-secondary {
+                padding: 10px 16px;
+            }
 
             .booking-card { padding: 16px; }
             .booking-card strong { font-size: 0.9rem; }
-            .service-type-small { font-size: 0.7rem; padding: 4px 8px; }
-            .status-pill { padding: 4px 10px; font-size: 0.65rem; margin-left: 6px; }
+            .service-type-small { font-size: 0.75rem; padding: 4px 8px; }
+            .status-pill { padding: 4px 10px; font-size: 0.7rem; margin-left: 6px; }
             .paid-badge { padding: 4px 8px; }
+
+            /* modals take 95% width on very small screens */
+            .modal-dialog {
+                margin: 0.5rem auto;
+                max-width: 95%;
+            }
         }
         @media (max-width: 360px) {
-            .filter-btn-group .btn { font-size: 0.65rem; padding: 4px 6px; }
+            .filter-btn-group .btn { font-size: 0.85rem; padding: 6px 6px; }
             .booking-card .d-flex { flex-wrap: wrap; gap: 6px; }
         }
     </style>
@@ -446,7 +494,7 @@
     </div>
 </div>
 
-<!-- PAYMENT HISTORY MODAL (columns reordered) -->
+<!-- PAYMENT HISTORY MODAL -->
 <div class="modal fade" id="paymentHistoryModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -634,7 +682,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Search by Booking ID row (right aligned) -->
+            <!-- Search by Booking ID row -->
             <div class="header-search-row">
                 <h6 class="fw-bold" style="letter-spacing:-0.2px;"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6>
                 <div class="search-wrapper">
@@ -646,17 +694,28 @@
     </div>
 
     <div class="container" style="max-width: 600px;">
-        <!-- Filter bar with dynamic counts (compact) -->
-        <div class="filter-bar">
-            <div class="filter-btn-group" role="group">
-                <button type="button" class="btn active" id="filterAll" onclick="filterBookings('All')">All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
-                <button type="button" class="btn" id="filterOpen" onclick="filterBookings('Open')">Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
-                <button type="button" class="btn" id="filterProcess" onclick="filterBookings('In Process')">In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
-                <button type="button" class="btn" id="filterClosed" onclick="filterBookings('Closed')">Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
+        <!-- FILTER SECTION (tabs + separate date on mobile) -->
+        <div class="filter-section">
+            <!-- Tabs row (always visible) -->
+            <div class="filter-tabs-row">
+                <div class="filter-btn-group" role="group">
+                    <button type="button" class="btn active" id="filterAll" onclick="filterBookings('All')">All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
+                    <button type="button" class="btn" id="filterOpen" onclick="filterBookings('Open')">Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
+                    <button type="button" class="btn" id="filterProcess" onclick="filterBookings('In Process')">In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
+                    <button type="button" class="btn" id="filterClosed" onclick="filterBookings('Closed')">Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
+                </div>
+                <!-- desktop date picker (hidden on mobile) -->
+                <div class="date-filter-group-desktop">
+                    <input type="date" id="filterDateDesktop" class="form-control form-control-sm date-filter" value="" onchange="applyDateFilter()">
+                    <button class="btn btn-sm btn-outline-secondary" onclick="clearDateFilter()">✕</button>
+                </div>
             </div>
-            <div class="date-filter-group">
-                <input type="date" id="filterDate" class="form-control form-control-sm date-filter" value="" onchange="applyDateFilter()">
-                <button class="btn btn-sm btn-outline-secondary" onclick="clearDateFilter()">✕</button>
+            <!-- mobile date row (hidden on desktop) -->
+            <div class="date-filter-row-mobile">
+                <div class="date-filter-group">
+                    <input type="date" id="filterDateMobile" class="form-control date-filter" value="" onchange="applyDateFilter()">
+                    <button class="btn btn-outline-secondary" onclick="clearDateFilter()">✕</button>
+                </div>
             </div>
         </div>
 
@@ -683,7 +742,6 @@
 
         let technicians = ['John Miller', 'Sarah K.', 'Mike Chen', 'Priya R.'];
 
-        // Enhanced bookings with roModel, bookingId, spareParts, comments
         let bookings = [
             { id: 1, customer: 'Mathika', phone: '9840011223', address: '#404 QA Street', service: 'Installation', status: 'Open', technician: null, date: '2025-04-01', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand Plus', bookingId: 'RHY001', spareParts: null, comments: null },
             { id: 2, customer: 'Rajesh', phone: '9003055667', address: '#12 Garden View', service: 'Service', status: 'In Process', technician: 'John Miller', date: '2025-04-02', paidAmount: null, paymentMethod: null, roModel: 'AquaSure', bookingId: 'RHY002', spareParts: null, comments: null },
@@ -733,7 +791,6 @@
             showAlert('Profile updated', 'Success');
         }
 
-        // Update tab counts based on current date and search filters only (ignoring status filter)
         function updateTabCounts() {
             let baseFiltered = bookings;
             if (currentDateFilter) {
@@ -756,19 +813,27 @@
 
         function filterBookings(status) {
             currentStatusFilter = status;
+            // remove active from all tabs
             document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            // add active to clicked button (using event)
+            if (event) event.target.classList.add('active');
             applyFilters();
         }
 
         function applyDateFilter() {
-            const dateInput = document.getElementById('filterDate').value;
-            currentDateFilter = dateInput || null;
+            // sync both desktop & mobile inputs
+            const desktopVal = document.getElementById('filterDateDesktop')?.value;
+            const mobileVal = document.getElementById('filterDateMobile')?.value;
+            const dateValue = desktopVal || mobileVal || '';
+            if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = dateValue;
+            if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = dateValue;
+            currentDateFilter = dateValue || null;
             applyFilters();
         }
 
         function clearDateFilter() {
-            document.getElementById('filterDate').value = '';
+            if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = '';
+            if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = '';
             currentDateFilter = null;
             applyFilters();
         }
@@ -817,7 +882,6 @@
                     const addressLink = `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
                     const infoIcon = `<i class="bi bi-info-circle info-icon" onclick="showSpareParts(${b.id})" title="View details"></i>`;
 
-                    // Button text changes based on status: "Assign" for Open, "Reassign" for In Process
                     const buttonText = b.status === 'In Process' ? 'Reassign' : 'Assign';
 
                     html += `
@@ -845,7 +909,6 @@
                 });
                 container.innerHTML = html;
             }
-            // update tab counts after each render
             updateTabCounts();
         }
 
@@ -956,7 +1019,6 @@
                 return;
             }
 
-            // Reordered columns: Booking ID, Customer, Phone, Date, Tech, Spare Parts, Comments, Amount, Method
             let tableHtml = `<div class="table-responsive-wrapper"><table class="table table-sm table-bordered"><thead class="table-light">
                 <tr><th>Booking ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></tr></thead><tbody>`;
             filtered.forEach(b => {
@@ -1035,7 +1097,6 @@
             updateNotificationBadge();
         }
 
-        // Expose functions globally
         window.toggleAdminAuth = toggleAdminAuth;
         window.adminLogin = adminLogin;
         window.adminSignup = adminSignup;
@@ -1057,11 +1118,11 @@
         window.addTechnician = addTechnician;
         window.removeTechnician = removeTechnician;
         window.showSpareParts = showSpareParts;
-        window.applyFilters = applyFilters; // expose for search input
+        window.applyFilters = applyFilters;
 
         window.onload = function() {
             updateAdminDisplay();
-            renderBookings(); // also calls updateTabCounts
+            renderBookings();
             updateNotificationBadge();
             populateTechSelect();
         };
