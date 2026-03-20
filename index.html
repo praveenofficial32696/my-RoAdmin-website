@@ -73,7 +73,7 @@
         }
         .profile-edit-icon:hover { background: rgba(255,255,255,0.25); color: white; }
 
-        /* ===== HEADER ICONS - SMALLER FOR MOBILE ===== */
+        /* ===== HEADER ICONS ===== */
         .header-icon-btn {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(4px);
@@ -106,6 +106,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Complaint indicator style */
+        .complaint-indicator {
+            display: inline-flex;
+            align-items: center;
+            background: #fee2e2;
+            color: #b91c1c;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 40px;
+            margin-left: 8px;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .complaint-indicator i {
+            font-size: 0.7rem;
         }
 
         /* ===== FILTER SECTION ===== */
@@ -190,7 +208,6 @@
             color: white;
         }
 
-        /* header search row */
         .header-search-row {
             display: flex;
             justify-content: space-between;
@@ -257,7 +274,7 @@
         .customer-section {
             display: flex;
             align-items: center;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             min-width: 0;
             flex: 1;
         }
@@ -357,7 +374,7 @@
         }
         .info-icon:hover { transform: scale(1.15); color: var(--primary); }
 
-        /* ===== MODAL - CENTERED FIX ===== */
+        /* ===== MODAL STYLES ===== */
         .modal-dialog {
             margin: 1.75rem auto;
             max-width: 400px;
@@ -371,26 +388,11 @@
             width: 100%;
             margin: 0 auto;
         }
-        .modal-header { 
-            border: none; 
-            padding-bottom: 0;
-            text-align: left;
-        }
-        .modal-body {
-            text-align: left;
-        }
-        /* Alert modal specific - center align content */
-        #alertModal .modal-body {
-            text-align: center;
-        }
-        #alertModal .btn {
-            display: inline-block;
-            margin: 0 auto;
-        }
-        .modal-footer { 
-            border: none;
-            justify-content: flex-end;
-        }
+        .modal-header { border: none; padding-bottom: 0; text-align: left; }
+        .modal-body { text-align: left; }
+        #alertModal .modal-body { text-align: center; }
+        #alertModal .btn { display: inline-block; margin: 0 auto; }
+        .modal-footer { border: none; justify-content: flex-end; }
         .modal .btn {
             border-radius: 40px;
             padding: 10px 20px;
@@ -428,22 +430,13 @@
         }
         .btn-rhythm:hover { background: #1e4a6f; }
 
-        /* ===== PAYMENT HISTORY - OPTIMIZED FOR WEB ===== */
+        /* Payment history */
         .payment-filter-row {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             padding-bottom: 8px;
             align-items: center;
-        }
-        .payment-filter-row .form-control-sm,
-        .payment-filter-row .btn-sm {
-            font-size: 0.85rem;
-            padding: 6px 12px;
-            height: 38px;
-        }
-        #paymentDateFilter, #paymentPhoneFilter {
-            min-width: 140px;
         }
         .table-responsive-wrapper {
             overflow-x: auto;
@@ -459,29 +452,10 @@
             font-size: 0.85rem;
             margin-bottom: 0;
         }
-        #paymentHistoryList .table thead { 
-            background: var(--primary); 
-            color: white;
-        }
-        #paymentHistoryList .table th { 
-            font-weight: 600; 
-            padding: 14px 10px; 
-            font-size: 0.85rem;
-            white-space: nowrap;
-            border-bottom: none;
-        }
-        #paymentHistoryList .table td { 
-            padding: 12px 10px; 
-            background: white; 
-            font-size: 0.85rem;
-            vertical-align: middle;
-            border-color: #edf2f7;
-        }
-        #paymentHistoryList .table tbody tr:hover td {
-            background: #f8fafc;
-        }
+        #paymentHistoryList .table thead { background: var(--primary); color: white; }
+        #paymentHistoryList .table th { font-weight: 600; padding: 14px 10px; font-size: 0.85rem; white-space: nowrap; border-bottom: none; }
+        #paymentHistoryList .table td { padding: 12px 10px; background: white; font-size: 0.85rem; vertical-align: middle; border-color: #edf2f7; }
 
-        /* ===== RESIZABLE MODAL FOR PAYMENT HISTORY ===== */
         #paymentHistoryModal .modal-dialog {
             max-width: 900px;
             width: 90%;
@@ -491,53 +465,9 @@
             min-width: 500px;
             min-height: 400px;
         }
-        #paymentHistoryModal .modal-content {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        #paymentHistoryModal .modal-body {
-            flex: 1;
-            overflow-y: auto;
-            max-height: calc(80vh - 120px);
-        }
-        /* Resize handle */
-        #paymentHistoryModal .modal-dialog::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 20px;
-            height: 20px;
-            cursor: nwse-resize;
-            background: linear-gradient(135deg, transparent 50%, var(--accent) 50%);
-            border-radius: 0 0 32px 0;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        #paymentHistoryModal .modal-dialog:hover::after {
-            opacity: 1;
-        }
-        /* Custom resize gripper */
-        .resize-handle {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 30px;
-            height: 30px;
-            cursor: nwse-resize;
-            z-index: 10;
-            color: var(--accent);
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            padding: 5px;
-            pointer-events: none;
-        }
-        .resize-handle i {
-            font-size: 1.2rem;
-            transform: rotate(90deg);
-        }
+        #paymentHistoryModal .modal-content { height: 100%; display: flex; flex-direction: column; }
+        #paymentHistoryModal .modal-body { flex: 1; overflow-y: auto; max-height: calc(80vh - 120px); }
+        .resize-handle { position: absolute; bottom: 0; right: 0; width: 30px; height: 30px; cursor: nwse-resize; z-index: 10; display: flex; align-items: flex-end; justify-content: flex-end; padding: 5px; pointer-events: none; }
 
         #logoutConfirmModal .btn-danger { background: #c24a4a; border-radius: 60px; }
         .hidden { display: none !important; }
@@ -547,134 +477,31 @@
             box-shadow: 0 0 0 4px rgba(43,108,158,0.2);
         }
 
-        /* ===== MOBILE SPECIFIC ===== */
+        /* Mobile optimization */
         @media (max-width: 480px) {
             .tech-header { padding: 12px 12px 24px; }
             .admin-badge { padding: 4px 10px; }
-            .admin-badge h5 { font-size: 0.95rem; }
-            .admin-badge small { font-size: 0.7rem; }
-            
-            .d-flex.gap-2.align-items-center {
-                gap: 4px !important;
-            }
-            .header-icon-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 1.1rem;
-            }
-            
-            .header-search-row { flex-direction: column; align-items: stretch; }
-            .header-search-row h6 { font-size: 0.85rem; }
-            .search-wrapper { max-width: 100%; }
-
-            .filter-tabs-row {
-                border-radius: 40px;
-                padding: 4px 6px;
-                margin-bottom: 6px;
-            }
-            .filter-btn-group {
-                justify-content: center;
-                width: 100%;
-            }
-            .filter-btn-group .btn {
-                padding: 4px 6px;
-                font-size: 0.7rem;
-                flex: 1 1 auto;
-            }
-            .filter-btn-group .btn .badge {
-                font-size: 0.6rem;
-                margin-left: 2px;
-            }
-            .date-filter-group-desktop {
-                display: none;
-            }
-            .date-filter-row-mobile {
-                display: block;
-            }
-            .date-filter {
-                font-size: 0.8rem;
-                padding: 8px 10px;
-            }
-            .btn-outline-secondary {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-
+            .admin-badge h5 { font-size: 0.9rem; }
+            .admin-badge small { font-size: 0.65rem; }
+            .header-icon-btn { width: 34px; height: 34px; font-size: 1rem; }
+            .header-top-icons { display: flex; gap: 6px; align-items: center; }
+            .header-search-row { flex-direction: row; align-items: center; justify-content: space-between; margin-top: 12px; gap: 8px; }
+            .header-search-row h6 { font-size: 0.75rem; white-space: normal; flex: 1; }
+            .search-wrapper { max-width: 160px; min-width: auto; flex: 0 1 auto; }
+            .mobile-logout-btn { background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border-radius: 40px; padding: 6px 10px; display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; color: white; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; }
+            .mobile-logout-btn i { font-size: 0.8rem; }
+            .desktop-logout-btn { display: none; }
+            .filter-tabs-row { border-radius: 40px; padding: 4px 6px; }
+            .filter-btn-group .btn { padding: 4px 6px; font-size: 0.7rem; flex: 1 1 auto; }
+            .date-filter-group-desktop { display: none; }
+            .date-filter-row-mobile { display: block; }
             .booking-card { padding: 12px; }
-            .customer-name { 
-                max-width: 80px; 
-                font-size: 0.85rem; 
-            }
-            .status-pill { 
-                padding: 3px 6px; 
-                font-size: 0.6rem; 
-            }
-            .service-type-small { 
-                font-size: 0.65rem; 
-                padding: 3px 6px;
-                max-width: none;
-                white-space: nowrap;
-            }
-            .service-type-small .date-part {
-                display: inline-block;
-                margin-left: 2px;
-            }
-            .paid-badge { 
-                padding: 3px 6px; 
-                font-size: 0.7rem; 
-            }
-            .booking-card .btn-outline-primary { 
-                padding: 3px 8px; 
-                font-size: 0.65rem; 
-            }
-
-            .modal-dialog {
-                margin: 0.5rem auto;
-                max-width: 95%;
-            }
-            
-            .list-group-item {
-                padding: 8px 12px;
-                font-size: 0.85rem;
-            }
-            .list-group-item .btn-sm {
-                padding: 4px 8px;
-                font-size: 0.7rem;
-            }
-
-            /* Payment history mobile optimization */
-            .payment-filter-row {
-                gap: 6px;
-            }
-            .payment-filter-row .form-control-sm,
-            .payment-filter-row .btn-sm {
-                font-size: 0.75rem;
-                padding: 4px 8px;
-                height: 34px;
-            }
-            #paymentDateFilter, #paymentPhoneFilter {
-                min-width: 120px;
-            }
-            #paymentHistoryList .table {
-                min-width: 700px;
-                font-size: 0.7rem;
-            }
-            
-            /* Resizable modal on mobile */
-            #paymentHistoryModal .modal-dialog {
-                min-width: 95%;
-                width: 95%;
-                resize: none;
-            }
-            #paymentHistoryModal .modal-dialog::after {
-                display: none;
-            }
+            .customer-name { max-width: 80px; font-size: 0.85rem; }
+            .status-pill { padding: 3px 6px; font-size: 0.6rem; }
+            .complaint-indicator { font-size: 0.55rem; padding: 2px 6px; margin-left: 4px; }
+            .modal-dialog { margin: 0.5rem auto; max-width: 95%; }
         }
-        @media (max-width: 360px) {
-            .filter-btn-group .btn { font-size: 0.6rem; padding: 3px 4px; }
-            .customer-name { max-width: 70px; }
-            .service-type-small { font-size: 0.6rem; }
-        }
+        @media (min-width: 481px) { .mobile-logout-btn { display: none; } .desktop-logout-btn { display: flex; } }
     </style>
 </head>
 <body>
@@ -701,41 +528,26 @@
                 <h5 class="fw-bold"><i class="bi bi-bell-fill me-2" style="color:var(--accent);"></i>Notifications</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body" id="notificationList">
-                <p class="text-muted text-center">No new notifications</p>
-            </div>
+            <div class="modal-body" id="notificationList"><p class="text-muted text-center">No new notifications</p></div>
         </div>
     </div>
 </div>
 
-<!-- PAYMENT HISTORY MODAL - WITH RESIZE FEATURE -->
+<!-- PAYMENT HISTORY MODAL -->
 <div class="modal fade" id="paymentHistoryModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
-            <div class="modal-header border-0">
-                <h5 class="fw-bold"><i class="bi bi-cash-stack me-2" style="color:var(--success);"></i>Payment History</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
+            <div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-cash-stack me-2"></i>Payment History</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
             <div class="modal-body">
-                <div class="payment-filter-row mb-3">
-                    <input type="date" id="paymentDateFilter" class="form-control form-control-sm" style="max-width:150px;" value="">
-                    <input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" style="max-width:160px;" placeholder="Filter by phone">
-                    <button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button>
-                </div>
-                <div class="table-responsive-wrapper" id="paymentHistoryList">
-                    <p class="text-muted text-center">Loading...</p>
-                </div>
+                <div class="payment-filter-row mb-3"><input type="date" id="paymentDateFilter" class="form-control form-control-sm"><input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" placeholder="Filter by phone"><button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button><button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button></div>
+                <div class="table-responsive-wrapper" id="paymentHistoryList"><p class="text-muted text-center">Loading...</p></div>
             </div>
-            <!-- Resize handle indicator (visual only) -->
-            <div class="resize-handle">
-                <i class="bi bi-arrows-angle-expand"></i>
-            </div>
+            <div class="resize-handle"><i class="bi bi-arrows-angle-expand"></i></div>
         </div>
     </div>
 </div>
 
-<!-- SPARE PARTS & COMMENTS MODAL -->
+<!-- SPARE PARTS & COMMENTS MODAL with Warranty Section -->
 <div class="modal fade" id="sparePartsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
@@ -747,11 +559,18 @@
                 <p><strong>Booking ID:</strong> <span id="modalBookingId"></span></p>
                 <p><strong>Customer:</strong> <span id="modalCustomer"></span></p>
                 <p><strong>RO Model:</strong> <span id="modalRoModel"></span></p>
+                <p><strong>Service Type:</strong> <span id="modalServiceType"></span></p>
                 <hr>
                 <p><strong>Spare parts used:</strong></p>
                 <p id="modalSpareParts" class="text-muted"></p>
                 <p><strong>Technician comments:</strong></p>
                 <p id="modalComments" class="text-muted"></p>
+                <div id="warrantyDetailsContainer" style="display:none;">
+                    <hr>
+                    <p><strong><i class="bi bi-shield-check me-1" style="color:#2e7d32;"></i> Warranty Details</strong></p>
+                    <p><strong>Warranty From:</strong> <span id="modalWarrantyFrom"></span></p>
+                    <p><strong>Warranty To:</strong> <span id="modalWarrantyTo"></span></p>
+                </div>
             </div>
             <div class="modal-footer border-0">
                 <button class="btn btn-primary rounded-pill px-4" data-bs-dismiss="modal">Close</button>
@@ -761,160 +580,41 @@
 </div>
 
 <!-- PROFILE EDIT MODAL -->
-<div class="modal fade" id="profileModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-            <div class="modal-header border-0">
-                <h5 class="fw-bold">Edit Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Full Name</label>
-                    <input type="text" class="form-control" id="adminName" placeholder="Admin name">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small fw-bold">Email</label>
-                    <input type="email" class="form-control" id="adminEmail" placeholder="admin@example.com">
-                </div>
-            </div>
-            <div class="modal-footer border-0">
-                <button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary rounded-pill px-4" onclick="saveAdminProfile()">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="modal fade" id="profileModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content p-3"><div class="modal-header border-0"><h5 class="fw-bold">Edit Profile</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="mb-3"><label class="form-label small fw-bold">Full Name</label><input type="text" class="form-control" id="adminName"></div><div class="mb-3"><label class="form-label small fw-bold">Email</label><input type="email" class="form-control" id="adminEmail"></div></div><div class="modal-footer border-0"><button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary rounded-pill px-4" onclick="saveAdminProfile()">Save</button></div></div></div></div>
 
 <!-- ASSIGN TECHNICIAN MODAL -->
-<div class="modal fade" id="assignModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-            <div class="modal-header border-0">
-                <h5 class="fw-bold"><i class="bi bi-tools me-2"></i>Assign Technician</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p class="fw-medium">Booking: <span class="fw-bold" id="assignBookingName"></span></p>
-                <select class="form-select rounded-pill" id="techSelect"></select>
-            </div>
-            <div class="modal-footer border-0">
-                <button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary rounded-pill px-4" onclick="confirmAssign()">Assign</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="modal fade" id="assignModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content p-3"><div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-tools me-2"></i>Assign Technician</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p class="fw-medium">Booking: <span class="fw-bold" id="assignBookingName"></span></p><select class="form-select rounded-pill" id="techSelect"></select></div><div class="modal-footer border-0"><button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary rounded-pill px-4" onclick="confirmAssign()">Assign</button></div></div></div></div>
 
 <!-- MANAGE TECHNICIANS MODAL -->
-<div class="modal fade" id="manageTechModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-            <div class="modal-header border-0">
-                <h5 class="fw-bold"><i class="bi bi-person-plus me-2"></i>Manage Technicians</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 d-flex gap-2">
-                    <input type="text" class="form-control" id="newTechName" placeholder="New technician name">
-                    <button class="btn btn-primary" onclick="addTechnician()">Add</button>
-                </div>
-                <ul class="list-group" id="techList"></ul>
-            </div>
-            <div class="modal-footer border-0">
-                <button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="modal fade" id="manageTechModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content p-3"><div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-person-plus me-2"></i>Manage Technicians</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="mb-3 d-flex gap-2"><input type="text" class="form-control" id="newTechName" placeholder="New technician name"><button class="btn btn-primary" onclick="addTechnician()">Add</button></div><ul class="list-group" id="techList"></ul></div><div class="modal-footer border-0"><button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Close</button></div></div></div></div>
 
 <!-- LOGOUT CONFIRMATION MODAL -->
-<div class="modal fade" id="logoutConfirmModal" tabindex="-1">
+<div class="modal fade" id="logoutConfirmModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content p-3 text-center"><div class="modal-body"><i class="bi bi-box-arrow-right fs-1 text-danger mb-3"></i><h5 class="fw-bold">Logout?</h5><p class="text-muted">Are you sure you want to end your session?</p><div class="d-flex gap-2 mt-4"><button class="btn btn-light w-50 rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-danger w-50 rounded-pill" onclick="performLogout()">Logout</button></div></div></div></div></div>
+
+<!-- COMPLAINT MODAL -->
+<div class="modal fade" id="complaintModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3 text-center">
+        <div class="modal-content p-3">
+            <div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>Register Complaint</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
             <div class="modal-body">
-                <i class="bi bi-box-arrow-right fs-1 text-danger mb-3"></i>
-                <h5 class="fw-bold">Logout?</h5>
-                <p class="text-muted">Are you sure you want to end your session?</p>
-                <div class="d-flex gap-2 mt-4">
-                    <button class="btn btn-light w-50 rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                    <button class="btn btn-danger w-50 rounded-pill" onclick="performLogout()">Logout</button>
-                </div>
+                <div class="mb-3"><label class="form-label small fw-bold">Customer Name *</label><input type="text" class="form-control" id="complaintCusName" placeholder="Full name"></div>
+                <div class="mb-3"><label class="form-label small fw-bold">Phone Number *</label><input type="tel" class="form-control" id="complaintPhone" placeholder="10 digit mobile"></div>
+                <div class="mb-3"><label class="form-label small fw-bold">RO Model *</label><input type="text" class="form-control" id="complaintRoModel" placeholder="e.g., Kent Grand Plus"></div>
+                <div class="mb-3"><label class="form-label small fw-bold">Service Type *</label><select class="form-select" id="complaintServiceType"><option value="Installation">Installation</option><option value="Reinstallation">Reinstallation</option><option value="Service">Service</option></select></div>
             </div>
+            <div class="modal-footer border-0"><button class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-danger rounded-pill px-4" onclick="raiseComplaint()">Raise Complaint</button></div>
         </div>
     </div>
 </div>
 
 <!-- AUTH SECTION -->
-<div id="authSection" class="container mt-5" style="max-width: 420px;">
-    <div class="text-center mb-4">
-        <h3 class="fw-bold" style="color: var(--primary);">⚡ Rhythm RO</h3>
-        <p class="text-muted">Admin. Manage Bookings</p>
-    </div>
-    <div id="loginCard" class="card">
-        <input type="email" class="form-control mb-3" id="loginEmail" placeholder="Email" value="admin@ro.com">
-        <input type="password" class="form-control mb-4" id="loginPassword" placeholder="Password" value="admin123">
-        <button onclick="adminLogin()" class="btn btn-rhythm w-100">Login to Dashboard</button>
-        <p class="text-center mt-3 small">New Admin? <a href="#" onclick="toggleAdminAuth(true); return false;" style="color: var(--accent); font-weight:600;">Sign Up</a></p>
-    </div>
-    <div id="signupCard" class="card hidden">
-        <input type="text" class="form-control mb-2" id="regAdminName" placeholder="Full Name">
-        <input type="email" class="form-control mb-2" id="regAdminEmail" placeholder="Email">
-        <input type="password" class="form-control mb-4" id="regAdminPassword" placeholder="Password">
-        <button onclick="adminSignup()" class="btn btn-rhythm w-100">Create Account</button>
-        <p class="text-center mt-3 small">Already have account? <a href="#" onclick="toggleAdminAuth(false); return false;" style="color: var(--accent); font-weight:600;">Login</a></p>
-    </div>
-</div>
+<div id="authSection" class="container mt-5" style="max-width: 420px;"><div class="text-center mb-4"><h3 class="fw-bold" style="color: var(--primary);">⚡ Rhythm RO</h3><p class="text-muted">Admin. Manage Bookings</p></div><div id="loginCard" class="card"><input type="email" class="form-control mb-3" id="loginEmail" placeholder="Email" value="admin@ro.com"><input type="password" class="form-control mb-4" id="loginPassword" placeholder="Password" value="admin123"><button onclick="adminLogin()" class="btn btn-rhythm w-100">Login to Dashboard</button><p class="text-center mt-3 small">New Admin? <a href="#" onclick="toggleAdminAuth(true); return false;" style="color: var(--accent); font-weight:600;">Sign Up</a></p></div><div id="signupCard" class="card hidden"><input type="text" class="form-control mb-2" id="regAdminName" placeholder="Full Name"><input type="email" class="form-control mb-2" id="regAdminEmail" placeholder="Email"><input type="password" class="form-control mb-4" id="regAdminPassword" placeholder="Password"><button onclick="adminSignup()" class="btn btn-rhythm w-100">Create Account</button><p class="text-center mt-3 small">Already have account? <a href="#" onclick="toggleAdminAuth(false); return false;" style="color: var(--accent); font-weight:600;">Login</a></p></div></div>
 
 <!-- ADMIN DASHBOARD -->
 <div id="dashboard" class="hidden">
-    <div class="tech-header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                <div class="d-flex align-items-center admin-badge">
-                    <div>
-                        <h5 class="mb-0 fw-bold" id="adminDisplayName">Admin</h5>
-                        <small class="opacity-75" id="adminDisplayEmail">admin@ro.com</small>
-                    </div>
-                    <i class="bi bi-pencil-square profile-edit-icon cursor-pointer" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="populateAdminProfile()"></i>
-                </div>
-                <div class="d-flex gap-2 align-items-center">
-                    <div class="position-relative">
-                        <div class="header-icon-btn" onclick="openManageTechModal()" data-bs-toggle="modal" data-bs-target="#manageTechModal" title="Manage technicians">
-                            <i class="bi bi-person-plus"></i>
-                        </div>
-                    </div>
-                    <div class="position-relative">
-                        <div class="header-icon-btn" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history">
-                            <i class="bi bi-cash-stack"></i>
-                        </div>
-                    </div>
-                    <div class="position-relative">
-                        <div class="header-icon-btn" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal">
-                            <i class="bi bi-bell"></i>
-                        </div>
-                        <span class="position-absolute notification-badge" id="notifBadge">0</span>
-                    </div>
-                    <div class="header-icon-btn" onclick="showLogoutConfirm()">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- Search by Booking ID row -->
-            <div class="header-search-row">
-                <h6 class="fw-bold"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6>
-                <div class="search-wrapper">
-                    <i class="bi bi-search"></i>
-                    <input type="text" id="searchBookingId" placeholder="Search by Booking ID" oninput="applyFilters()">
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <div class="tech-header"><div class="container"><div class="d-flex justify-content-between align-items-start flex-wrap gap-2"><div class="d-flex align-items-center admin-badge"><div><h5 class="mb-0 fw-bold" id="adminDisplayName">Admin</h5><small class="opacity-75" id="adminDisplayEmail">admin@ro.com</small></div><i class="bi bi-pencil-square profile-edit-icon cursor-pointer" data-bs-toggle="modal" data-bs-target="#profileModal" onclick="populateAdminProfile()"></i></div><div class="d-flex gap-2 align-items-center header-top-icons"><div class="position-relative"><div class="header-icon-btn" data-bs-toggle="modal" data-bs-target="#complaintModal" title="Raise Complaint"><i class="bi bi-chat-right-text-fill"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="openManageTechModal()" data-bs-toggle="modal" data-bs-target="#manageTechModal" title="Manage technicians"><i class="bi bi-person-plus"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="showPaymentHistory()" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal" title="Payment history"><i class="bi bi-cash-stack"></i></div></div><div class="position-relative"><div class="header-icon-btn" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notifListModal"><i class="bi bi-bell"></i></div><span class="position-absolute notification-badge" id="notifBadge">0</span></div><div class="desktop-logout-btn header-icon-btn" onclick="showLogoutConfirm()"><i class="bi bi-box-arrow-right"></i></div></div></div><div class="header-search-row"><h6 class="fw-bold"><i class="bi bi-calendar-check me-2"></i>Today's focus · bookings</h6><div class="search-wrapper"><i class="bi bi-search"></i><input type="text" id="searchBookingId" placeholder="Search by ID" oninput="applyFilters()"></div><div class="mobile-logout-btn" onclick="showLogoutConfirm()"><i class="bi bi-box-arrow-right"></i> <span>Logout</span></div></div></div></div>
     <div class="container" style="max-width: 600px;">
-        <!-- FILTER SECTION (tabs + separate date on mobile) -->
         <div class="filter-section">
-            <!-- Tabs row (always visible) -->
             <div class="filter-tabs-row">
                 <div class="filter-btn-group" role="group">
                     <button type="button" class="btn active" id="filterAll" onclick="filterBookings('All')">All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
@@ -922,30 +622,12 @@
                     <button type="button" class="btn" id="filterProcess" onclick="filterBookings('In Process')">In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
                     <button type="button" class="btn" id="filterClosed" onclick="filterBookings('Closed')">Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">0</span></button>
                 </div>
-                <!-- desktop date picker (hidden on mobile) -->
-                <div class="date-filter-group-desktop">
-                    <input type="date" id="filterDateDesktop" class="form-control form-control-sm date-filter" value="" onchange="applyDateFilter()">
-                    <button class="btn btn-sm btn-outline-secondary" onclick="clearDateFilter()">✕</button>
-                </div>
+                <div class="date-filter-group-desktop"><input type="date" id="filterDateDesktop" class="form-control form-control-sm date-filter" value="" onchange="applyDateFilter()"><button class="btn btn-sm btn-outline-secondary" onclick="clearDateFilter()">✕</button></div>
             </div>
-            <!-- mobile date row (hidden on desktop) -->
-            <div class="date-filter-row-mobile">
-                <div class="date-filter-group">
-                    <input type="date" id="filterDateMobile" class="form-control date-filter" value="" onchange="applyDateFilter()">
-                    <button class="btn btn-outline-secondary" onclick="clearDateFilter()">✕</button>
-                </div>
-            </div>
+            <div class="date-filter-row-mobile"><div class="date-filter-group"><input type="date" id="filterDateMobile" class="form-control date-filter" value="" onchange="applyDateFilter()"><button class="btn btn-outline-secondary" onclick="clearDateFilter()">✕</button></div></div>
         </div>
-
-        <!-- Booking list -->
         <div id="bookingList"></div>
-
-        <!-- Simulate technician close -->
-        <div class="text-center mt-4 mb-5">
-            <button class="btn btn-outline-secondary rounded-pill px-4 py-2" style="border-color: var(--accent); color: var(--accent);" onclick="simulateTechnicianClose()">
-                <i class="bi bi-arrow-repeat me-2"></i>Simulate Job Closed (tech)
-            </button>
-        </div>
+        <div class="text-center mt-4 mb-5"><button class="btn btn-outline-secondary rounded-pill px-4 py-2" style="border-color: var(--accent); color: var(--accent);" onclick="simulateTechnicianClose()"><i class="bi bi-arrow-repeat me-2"></i>Simulate Job Closed (tech)</button></div>
     </div>
 </div>
 
@@ -953,22 +635,16 @@
 <script>
     (function() {
         // ----- Data stores -----
-        let adminProfile = {
-            name: 'Admin User',
-            email: 'admin@ro.com'
-        };
-
+        let adminProfile = { name: 'Admin User', email: 'admin@ro.com' };
         let technicians = ['John Miller', 'Sarah K.', 'Mike Chen', 'Priya R.'];
-
         let bookings = [
-            { id: 1, customer: 'Mathika', phone: '9840011223', address: '#404 QA Street', service: 'Installation', status: 'Open', technician: null, date: '2025-04-01', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand Plus', bookingId: 'RHY001', spareParts: null, comments: null },
-            { id: 2, customer: 'Rajesh', phone: '9003055667', address: '#12 Garden View', service: 'Service', status: 'In Process', technician: 'John Miller', date: '2025-04-02', paidAmount: null, paymentMethod: null, roModel: 'AquaSure', bookingId: 'RHY002', spareParts: null, comments: null },
-            { id: 3, customer: 'Priya', phone: '9876543210', address: '#55 Lake Road', service: 'Repair', status: 'Open', technician: null, date: '2025-04-03', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand', bookingId: 'RHY003', spareParts: null, comments: null },
-            { id: 4, customer: 'Anand', phone: '9123456789', address: '#7 Gandhi St', service: 'Installation', status: 'Closed', technician: 'Sarah K.', date: '2025-03-28', paidAmount: 1250, paymentMethod: 'Cash', roModel: 'Livpure', bookingId: 'RHY004', spareParts: ['Sediment filter', 'Carbon block'], comments: 'Customer requested quick installation.' },
-            { id: 5, customer: 'Lakshmi', phone: '9988776655', address: '#22 MG Road', service: 'Service', status: 'Closed', technician: 'Mike Chen', date: '2025-04-01', paidAmount: 800, paymentMethod: 'Online', roModel: 'Kent Grand Plus', bookingId: 'RHY005', spareParts: ['Pre-filter', 'Post-carbon'], comments: 'Annual maintenance done.' },
-            { id: 6, customer: 'Venkat', phone: '9090909090', address: '#88 Park View', service: 'Installation', status: 'In Process', technician: 'Priya R.', date: '2025-04-03', paidAmount: null, paymentMethod: null, roModel: 'AO Smith', bookingId: 'RHY006', spareParts: null, comments: null }
+            { id: 1, customer: 'Mathika', phone: '9840011223', address: '#404 QA Street', service: 'Installation', status: 'Open', technician: null, date: '2025-04-01', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand Plus', bookingId: 'RHY001', spareParts: null, comments: null, isComplaint: false, warrantyFrom: null, warrantyTo: null },
+            { id: 2, customer: 'Rajesh', phone: '9003055667', address: '#12 Garden View', service: 'Service', status: 'In Process', technician: 'John Miller', date: '2025-04-02', paidAmount: null, paymentMethod: null, roModel: 'AquaSure', bookingId: 'RHY002', spareParts: null, comments: null, isComplaint: false, warrantyFrom: null, warrantyTo: null },
+            { id: 3, customer: 'Priya', phone: '9876543210', address: '#55 Lake Road', service: 'Repair', status: 'Open', technician: null, date: '2025-04-03', paidAmount: null, paymentMethod: null, roModel: 'Kent Grand', bookingId: 'RHY003', spareParts: null, comments: null, isComplaint: false, warrantyFrom: null, warrantyTo: null },
+            { id: 4, customer: 'Anand', phone: '9123456789', address: '#7 Gandhi St', service: 'Installation', status: 'Closed', technician: 'Sarah K.', date: '2025-03-28', paidAmount: 1250, paymentMethod: 'Cash', roModel: 'Livpure', bookingId: 'RHY004', spareParts: ['Sediment filter', 'Carbon block'], comments: 'Installation completed with warranty', isComplaint: false, warrantyFrom: '2025-03-28', warrantyTo: '2027-03-28' },
+            { id: 5, customer: 'Lakshmi', phone: '9988776655', address: '#22 MG Road', service: 'Service', status: 'Closed', technician: 'Mike Chen', date: '2025-04-01', paidAmount: 800, paymentMethod: 'Online', roModel: 'Kent Grand Plus', bookingId: 'RHY005', spareParts: ['Pre-filter', 'Post-carbon'], comments: 'Annual maintenance done.', isComplaint: false, warrantyFrom: null, warrantyTo: null },
+            { id: 6, customer: 'Venkat', phone: '9090909090', address: '#88 Park View', service: 'Installation', status: 'In Process', technician: 'Priya R.', date: '2025-04-03', paidAmount: null, paymentMethod: null, roModel: 'AO Smith', bookingId: 'RHY006', spareParts: null, comments: null, isComplaint: false, warrantyFrom: null, warrantyTo: null }
         ];
-
         let notifications = [];
         let currentStatusFilter = 'All';
         let currentDateFilter = null;
@@ -976,397 +652,141 @@
         let currentAssignId = null;
         let paymentDateFilter = '';
         let paymentPhoneFilter = '';
+        let nextComplaintId = 200;
 
-        // Helper function to format date from YYYY-MM-DD to DD-MM-YYYY
-        function formatDateDDMMYYYY(dateStr) {
-            if (!dateStr) return '';
-            const parts = dateStr.split('-');
-            if (parts.length === 3) {
-                return `${parts[2]}-${parts[1]}-${parts[0]}`;
-            }
-            return dateStr;
+        function formatDateDDMMYYYY(dateStr) { if (!dateStr) return ''; const parts = dateStr.split('-'); if (parts.length === 3) return `${parts[2]}-${parts[1]}-${parts[0]}`; return dateStr; }
+        function showAlert(msg, title = 'Notice') { document.getElementById('alertMessage').innerText = msg; document.getElementById('alertTitle').innerText = title; new bootstrap.Modal(document.getElementById('alertModal')).show(); }
+        function updateAdminDisplay() { document.getElementById('adminDisplayName').innerText = adminProfile.name; document.getElementById('adminDisplayEmail').innerText = adminProfile.email; }
+        function populateAdminProfile() { document.getElementById('adminName').value = adminProfile.name; document.getElementById('adminEmail').value = adminProfile.email; }
+        function saveAdminProfile() { const n = document.getElementById('adminName').value.trim(); const e = document.getElementById('adminEmail').value.trim(); if (n && e) { adminProfile.name = n; adminProfile.email = e; updateAdminDisplay(); bootstrap.Modal.getInstance(document.getElementById('profileModal')).hide(); showAlert('Profile updated', 'Success'); } else showAlert('Name and email are required'); }
+        function updateTabCounts() { let base = bookings; if (currentDateFilter) base = base.filter(b => b.date === currentDateFilter); if (currentSearchId) base = base.filter(b => b.bookingId.toLowerCase().includes(currentSearchId)); const total = base.length, open = base.filter(b => b.status === 'Open').length, process = base.filter(b => b.status === 'In Process').length, closed = base.filter(b => b.status === 'Closed').length; document.getElementById('filterAll').innerHTML = `All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${total}</span>`; document.getElementById('filterOpen').innerHTML = `Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${open}</span>`; document.getElementById('filterProcess').innerHTML = `In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${process}</span>`; document.getElementById('filterClosed').innerHTML = `Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${closed}</span>`; }
+        function filterBookings(status) { currentStatusFilter = status; document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active')); if (event) event.target.classList.add('active'); applyFilters(); }
+        function applyDateFilter() { const val = document.getElementById('filterDateDesktop')?.value || document.getElementById('filterDateMobile')?.value || ''; if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = val; if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = val; currentDateFilter = val || null; applyFilters(); }
+        function clearDateFilter() { if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = ''; if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = ''; currentDateFilter = null; applyFilters(); }
+        function applyFilters() { currentSearchId = document.getElementById('searchBookingId').value.trim().toLowerCase(); renderBookings(); }
+        
+        // Enhanced showSpareParts with warranty display for Installation-type closed jobs
+        function showSpareParts(bookingId) { 
+            const b = bookings.find(bk => bk.id === bookingId); 
+            if (b) { 
+                document.getElementById('modalBookingId').innerText = b.bookingId; 
+                document.getElementById('modalCustomer').innerText = b.customer; 
+                document.getElementById('modalRoModel').innerText = b.roModel;
+                document.getElementById('modalServiceType').innerText = b.service;
+                document.getElementById('modalSpareParts').innerText = b.spareParts ? b.spareParts.join(', ') : '—'; 
+                document.getElementById('modalComments').innerText = b.comments || '—';
+                
+                // Show warranty details only for Installation type with Closed status and warranty data exists
+                const warrantyContainer = document.getElementById('warrantyDetailsContainer');
+                if (b.service === 'Installation' && b.status === 'Closed' && b.warrantyFrom && b.warrantyTo) {
+                    document.getElementById('modalWarrantyFrom').innerText = formatDateDDMMYYYY(b.warrantyFrom);
+                    document.getElementById('modalWarrantyTo').innerText = formatDateDDMMYYYY(b.warrantyTo);
+                    warrantyContainer.style.display = 'block';
+                } else {
+                    warrantyContainer.style.display = 'none';
+                }
+                new bootstrap.Modal(document.getElementById('sparePartsModal')).show(); 
+            } 
         }
-
-        function showAlert(msg, title = 'Notice') {
-            document.getElementById('alertMessage').innerText = msg;
-            document.getElementById('alertTitle').innerText = title;
-            new bootstrap.Modal(document.getElementById('alertModal')).show();
-        }
-
-        function updateAdminDisplay() {
-            document.getElementById('adminDisplayName').innerText = adminProfile.name;
-            document.getElementById('adminDisplayEmail').innerText = adminProfile.email;
-        }
-
-        function populateAdminProfile() {
-            document.getElementById('adminName').value = adminProfile.name;
-            document.getElementById('adminEmail').value = adminProfile.email;
-        }
-
-        function saveAdminProfile() {
-            const newName = document.getElementById('adminName').value.trim();
-            const newEmail = document.getElementById('adminEmail').value.trim();
-            if (!newName || !newEmail) {
-                const modalInstance = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
-                if (modalInstance) modalInstance.hide();
-                setTimeout(() => showAlert('Name and email are required', 'Cannot save'), 200);
-                return;
-            }
-            adminProfile.name = newName;
-            adminProfile.email = newEmail;
-            updateAdminDisplay();
-            bootstrap.Modal.getInstance(document.getElementById('profileModal')).hide();
-            showAlert('Profile updated', 'Success');
-        }
-
-        function updateTabCounts() {
-            let baseFiltered = bookings;
-            if (currentDateFilter) {
-                baseFiltered = baseFiltered.filter(b => b.date === currentDateFilter);
-            }
-            if (currentSearchId) {
-                baseFiltered = baseFiltered.filter(b => b.bookingId.toLowerCase().includes(currentSearchId));
-            }
-
-            const total = baseFiltered.length;
-            const openCount = baseFiltered.filter(b => b.status === 'Open').length;
-            const processCount = baseFiltered.filter(b => b.status === 'In Process').length;
-            const closedCount = baseFiltered.filter(b => b.status === 'Closed').length;
-
-            document.getElementById('filterAll').innerHTML = `All <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${total}</span>`;
-            document.getElementById('filterOpen').innerHTML = `Open <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${openCount}</span>`;
-            document.getElementById('filterProcess').innerHTML = `In Process <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${processCount}</span>`;
-            document.getElementById('filterClosed').innerHTML = `Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${closedCount}</span>`;
-        }
-
-        function filterBookings(status) {
-            currentStatusFilter = status;
-            document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active'));
-            if (event) event.target.classList.add('active');
-            applyFilters();
-        }
-
-        function applyDateFilter() {
-            const desktopVal = document.getElementById('filterDateDesktop')?.value;
-            const mobileVal = document.getElementById('filterDateMobile')?.value;
-            const dateValue = desktopVal || mobileVal || '';
-            if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = dateValue;
-            if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = dateValue;
-            currentDateFilter = dateValue || null;
-            applyFilters();
-        }
-
-        function clearDateFilter() {
-            if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = '';
-            if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = '';
-            currentDateFilter = null;
-            applyFilters();
-        }
-
-        function applyFilters() {
-            currentSearchId = document.getElementById('searchBookingId').value.trim().toLowerCase();
-            renderBookings();
-        }
-
-        function showSpareParts(bookingId) {
-            const booking = bookings.find(b => b.id === bookingId);
-            if (!booking) return;
-            document.getElementById('modalBookingId').innerText = booking.bookingId;
-            document.getElementById('modalCustomer').innerText = booking.customer;
-            document.getElementById('modalRoModel').innerText = booking.roModel;
-            const spareList = booking.spareParts ? booking.spareParts.join(', ') : '—';
-            document.getElementById('modalSpareParts').innerText = spareList;
-            document.getElementById('modalComments').innerText = booking.comments || '—';
-            new bootstrap.Modal(document.getElementById('sparePartsModal')).show();
-        }
-
+        
         function renderBookings() {
             let filtered = bookings;
-
-            if (currentStatusFilter !== 'All') {
-                filtered = filtered.filter(b => b.status === currentStatusFilter);
-            }
-            if (currentDateFilter) {
-                filtered = filtered.filter(b => b.date === currentDateFilter);
-            }
-            if (currentSearchId) {
-                filtered = filtered.filter(b => b.bookingId.toLowerCase().includes(currentSearchId));
-            }
-
+            if (currentStatusFilter !== 'All') filtered = filtered.filter(b => b.status === currentStatusFilter);
+            if (currentDateFilter) filtered = filtered.filter(b => b.date === currentDateFilter);
+            if (currentSearchId) filtered = filtered.filter(b => b.bookingId.toLowerCase().includes(currentSearchId));
             const container = document.getElementById('bookingList');
-            if (filtered.length === 0) {
-                container.innerHTML = '<p class="text-muted text-center">No bookings match filters.</p>';
-            } else {
+            if (filtered.length === 0) { container.innerHTML = '<p class="text-muted text-center">No bookings match filters.</p>'; } 
+            else {
                 let html = '';
                 filtered.forEach(b => {
                     const statusClass = b.status === 'Open' ? 'status-open' : (b.status === 'In Process' ? 'status-process' : 'status-closed');
-                    const paidBadge = (b.status === 'Closed' && b.paidAmount != null) ? 
-                        `<span class="paid-badge"> ₹${b.paidAmount} paid</span>` : '';
-                    
+                    const paidBadge = (b.status === 'Closed' && b.paidAmount != null) ? `<span class="paid-badge"> ₹${b.paidAmount} paid</span>` : '';
+                    const complaintBadge = b.isComplaint ? `<span class="complaint-indicator"><i class="bi bi-exclamation-triangle-fill"></i> Complaint</span>` : '';
                     const phoneLink = `tel:${b.phone}`;
                     const addressLink = `https://maps.google.com/?q=${encodeURIComponent(b.address)}`;
                     const infoIcon = `<i class="bi bi-info-circle info-icon" onclick="showSpareParts(${b.id})" title="View details"></i>`;
                     const buttonText = b.status === 'In Process' ? 'Reassign' : 'Assign';
-                    
-                    // Format date to DD-MM-YYYY
                     const formattedDate = formatDateDDMMYYYY(b.date);
-
-                    html += `
-                        <div class="booking-card">
-                            <div class="card-header-row">
-                                <div class="customer-section">
-                                    <span class="customer-name">${b.customer}</span>
-                                    ${infoIcon}
-                                    <span class="status-pill ${statusClass}">${b.status}</span>
-                                </div>
-                                <span class="service-type-small" title="${b.service} | ${formattedDate}">
-                                    ${b.service} <span class="date-part">| ${formattedDate}</span>
-                                </span>
-                            </div>
-                            <div class="small text-muted mt-1"><i class="bi bi-upc-scan"></i> Booking ID: ${b.bookingId}</div>
-                            <div class="small text-muted mt-2">
-                                <i class="bi bi-telephone"></i> <a href="${phoneLink}" class="clickable-link">${b.phone}</a>
-                            </div>
-                            <div class="small text-muted">
-                                <i class="bi bi-geo-alt"></i> <a href="${addressLink}" target="_blank" class="clickable-link">${b.address}</a>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
-                                <span><i class="bi bi-person-badge"></i> Tech: ${b.technician || '—'}</span>
-                                ${b.status !== 'Closed' ? `<button class="btn btn-outline-primary btn-sm" onclick="openAssignModal(${b.id})">${buttonText}</button>` : paidBadge}
-                            </div>
-                        </div>
-                    `;
+                    html += `<div class="booking-card"><div class="card-header-row"><div class="customer-section"><span class="customer-name">${b.customer}</span>${infoIcon}<span class="status-pill ${statusClass}">${b.status}</span>${complaintBadge}</div><span class="service-type-small">${b.service} <span class="date-part">| ${formattedDate}</span></span></div><div class="small text-muted mt-1"><i class="bi bi-upc-scan"></i> Booking ID: ${b.bookingId}</div><div class="small text-muted mt-2"><i class="bi bi-telephone"></i> <a href="${phoneLink}" class="clickable-link">${b.phone}</a></div><div class="small text-muted"><i class="bi bi-geo-alt"></i> <a href="${addressLink}" target="_blank" class="clickable-link">${b.address}</a></div><div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2"><span><i class="bi bi-person-badge"></i> Tech: ${b.technician || '—'}</span>${b.status !== 'Closed' ? `<button class="btn btn-outline-primary btn-sm" onclick="openAssignModal(${b.id})">${buttonText}</button>` : paidBadge}</div></div>`;
                 });
                 container.innerHTML = html;
             }
             updateTabCounts();
         }
 
-        function populateTechSelect() {
-            const select = document.getElementById('techSelect');
-            select.innerHTML = '';
-            technicians.forEach(tech => {
-                const option = document.createElement('option');
-                option.value = tech;
-                option.textContent = tech;
-                select.appendChild(option);
-            });
-        }
-
-        function openAssignModal(bookingId) {
-            const booking = bookings.find(b => b.id === bookingId);
-            if (!booking) return;
-            document.getElementById('assignBookingName').innerText = booking.customer;
-            populateTechSelect();
-            if (booking.technician) {
-                document.getElementById('techSelect').value = booking.technician;
-            }
-            currentAssignId = bookingId;
-            new bootstrap.Modal(document.getElementById('assignModal')).show();
-        }
-
-        function confirmAssign() {
-            const tech = document.getElementById('techSelect').value;
-            const booking = bookings.find(b => b.id === currentAssignId);
-            if (booking) {
-                booking.technician = tech;
-                booking.status = 'In Process';
-                renderBookings();
-                addNotification(`Technician ${tech} assigned to ${booking.customer}.`);
-                showAlert(`Technician ${tech} assigned to ${booking.customer}`, 'Success');
-            }
-            bootstrap.Modal.getInstance(document.getElementById('assignModal')).hide();
-        }
-
-        function openManageTechModal() { renderTechList(); }
-        function renderTechList() {
-            const list = document.getElementById('techList');
-            list.innerHTML = '';
-            technicians.forEach((tech, index) => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.innerHTML = `${tech} <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="removeTechnician(${index})"><i class="bi bi-trash"></i></button>`;
-                list.appendChild(li);
-            });
-        }
-        function addTechnician() {
-            const input = document.getElementById('newTechName');
-            const name = input.value.trim();
-            if (name && !technicians.includes(name)) {
-                technicians.push(name);
-                input.value = '';
-                renderTechList();
-                addNotification(`Technician ${name} added.`);
-            } else if (technicians.includes(name)) showAlert('Technician already exists', 'Notice');
-        }
-        function removeTechnician(index) {
-            if (technicians.length > 1) {
-                const removed = technicians.splice(index, 1)[0];
-                renderTechList();
-                addNotification(`Technician ${removed} removed.`);
-            } else showAlert('At least one technician required', 'Cannot remove');
-        }
-
-        function addNotification(message) {
-            notifications.push({ message, time: new Date().toLocaleTimeString() });
-            updateNotificationBadge();
-        }
-        function updateNotificationBadge() {
-            document.getElementById('notifBadge').innerText = notifications.length;
-        }
-        function showNotifications() {
-            const listDiv = document.getElementById('notificationList');
-            if (notifications.length === 0) listDiv.innerHTML = '<p class="text-muted text-center">No new notifications</p>';
-            else {
-                let items = '';
-                notifications.slice().reverse().forEach(n => {
-                    items += `<div class="border-bottom p-2"><small class="text-primary">${n.time}</small><p class="mb-0">${n.message}</p></div>`;
-                });
-                listDiv.innerHTML = items;
-            }
-        }
-
-        function showPaymentHistory() {
-            document.getElementById('paymentDateFilter').value = '';
-            document.getElementById('paymentPhoneFilter').value = '';
-            paymentDateFilter = '';
-            paymentPhoneFilter = '';
-            applyPaymentFilters();
-        }
-
-        function applyPaymentFilters() {
-            paymentDateFilter = document.getElementById('paymentDateFilter').value;
-            paymentPhoneFilter = document.getElementById('paymentPhoneFilter').value.trim();
-
-            let filtered = bookings.filter(b => b.status === 'Closed' && b.paidAmount != null);
-
-            if (paymentDateFilter) filtered = filtered.filter(b => b.date === paymentDateFilter);
-            if (paymentPhoneFilter) filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter));
-
-            const listDiv = document.getElementById('paymentHistoryList');
-            if (filtered.length === 0) {
-                listDiv.innerHTML = '<p class="text-muted text-center">No payment records found.</p>';
-                return;
-            }
-
-            let tableHtml = `<div class="table-responsive-wrapper"><table class="table table-sm table-bordered"><thead class="table-light">
-                <tr><th>Booking ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></tr></thead><tbody>`;
-            filtered.forEach(b => {
-                const spare = b.spareParts ? b.spareParts.join(', ') : '—';
-                const formattedDate = formatDateDDMMYYYY(b.date);
-                tableHtml += `<tr>
-                    <td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${formattedDate}</td>
-                    <td>${b.technician || '—'}</td><td>${spare}</td><td>${b.comments || '—'}</td>
-                    <td>₹${b.paidAmount}</td><td>${b.paymentMethod || '—'}</td>
-                </tr>`;
-            });
-            tableHtml += '</tbody></table></div>';
-            listDiv.innerHTML = tableHtml;
-        }
-
-        function clearPaymentFilters() {
-            document.getElementById('paymentDateFilter').value = '';
-            document.getElementById('paymentPhoneFilter').value = '';
-            paymentDateFilter = '';
-            paymentPhoneFilter = '';
-            applyPaymentFilters();
-        }
-
-        function simulateTechnicianClose() {
-            const openJobs = bookings.filter(b => b.status !== 'Closed');
-            if (openJobs.length === 0) { showAlert('No open/in-process jobs to close.', 'Info'); return; }
-            const randomIndex = Math.floor(Math.random() * openJobs.length);
-            const job = openJobs[randomIndex];
-            job.status = 'Closed';
-            job.paidAmount = Math.floor(Math.random() * 1500) + 500;
-            job.paymentMethod = Math.random() > 0.5 ? 'Cash' : 'Online';
-            job.spareParts = ['Membrane', 'Filter'];
-            job.comments = 'Routine replacement done.';
+        window.raiseComplaint = function() {
+            const cusName = document.getElementById('complaintCusName').value.trim();
+            const phone = document.getElementById('complaintPhone').value.trim();
+            const roModel = document.getElementById('complaintRoModel').value.trim();
+            const serviceType = document.getElementById('complaintServiceType').value;
+            if (!cusName || !phone || !roModel || !serviceType) { showAlert('All fields required.', 'Missing Info'); return; }
+            if (!/^\d{10,}$/.test(phone)) { showAlert('Valid phone number required.', 'Invalid'); return; }
+            const newId = bookings.length + 10;
+            const newBookingId = `CMP${nextComplaintId++}`;
+            const today = new Date().toISOString().slice(0,10);
+            const newComplaintBooking = {
+                id: newId, customer: cusName, phone: phone, address: 'Complaint registered - address to be updated',
+                service: serviceType, status: 'Open', technician: null, date: today, paidAmount: null,
+                paymentMethod: null, roModel: roModel, bookingId: newBookingId, spareParts: null,
+                comments: 'Complaint raised by admin', isComplaint: true, warrantyFrom: null, warrantyTo: null
+            };
+            bookings.push(newComplaintBooking);
+            document.getElementById('complaintCusName').value = ''; document.getElementById('complaintPhone').value = '';
+            document.getElementById('complaintRoModel').value = ''; document.getElementById('complaintServiceType').value = 'Installation';
+            bootstrap.Modal.getInstance(document.getElementById('complaintModal')).hide();
             renderBookings();
-            addNotification(`Job for ${job.customer} (${job.service}) was closed. Amount: ₹${job.paidAmount} (${job.paymentMethod})`);
-            showAlert(`Job ${job.customer} closed.`, 'Technician update');
-        }
-
-        function toggleAdminAuth(showSignup) {
-            document.getElementById('loginCard').classList.toggle('hidden', showSignup);
-            document.getElementById('signupCard').classList.toggle('hidden', !showSignup);
-        }
-
-        function adminLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const pass = document.getElementById('loginPassword').value.trim();
-            if (!email || !pass) { showAlert('Enter credentials', 'Login'); return; }
-            adminProfile.email = email;
-            adminProfile.name = email.split('@')[0] || 'Admin';
-            updateAdminDisplay();
-            document.getElementById('authSection').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            renderBookings();
-            addNotification('Welcome back, Admin.');
-        }
-
-        function adminSignup() {
-            const name = document.getElementById('regAdminName').value.trim();
-            const email = document.getElementById('regAdminEmail').value.trim();
-            const pass = document.getElementById('regAdminPassword').value.trim();
-            if (!name || !email || !pass) { showAlert('All fields required', 'Sign up'); return; }
-            adminProfile.name = name;
-            adminProfile.email = email;
-            updateAdminDisplay();
-            document.getElementById('authSection').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            renderBookings();
-            addNotification('Account created. Welcome!');
-        }
-
-        function showLogoutConfirm() { new bootstrap.Modal(document.getElementById('logoutConfirmModal')).show(); }
-        function performLogout() {
-            bootstrap.Modal.getInstance(document.getElementById('logoutConfirmModal')).hide();
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById('authSection').classList.remove('hidden');
-            notifications = [];
-            updateNotificationBadge();
-        }
-
-        window.toggleAdminAuth = toggleAdminAuth;
-        window.adminLogin = adminLogin;
-        window.adminSignup = adminSignup;
-        window.showLogoutConfirm = showLogoutConfirm;
-        window.performLogout = performLogout;
-        window.populateAdminProfile = populateAdminProfile;
-        window.saveAdminProfile = saveAdminProfile;
-        window.openAssignModal = openAssignModal;
-        window.confirmAssign = confirmAssign;
-        window.showNotifications = showNotifications;
-        window.showPaymentHistory = showPaymentHistory;
-        window.applyPaymentFilters = applyPaymentFilters;
-        window.clearPaymentFilters = clearPaymentFilters;
-        window.simulateTechnicianClose = simulateTechnicianClose;
-        window.filterBookings = filterBookings;
-        window.applyDateFilter = applyDateFilter;
-        window.clearDateFilter = clearDateFilter;
-        window.openManageTechModal = openManageTechModal;
-        window.addTechnician = addTechnician;
-        window.removeTechnician = removeTechnician;
-        window.showSpareParts = showSpareParts;
-        window.applyFilters = applyFilters;
-
-        window.onload = function() {
-            updateAdminDisplay();
-            renderBookings();
-            updateNotificationBadge();
-            populateTechSelect();
-            
-            // Initialize resizable modal
-            const paymentModal = document.getElementById('paymentHistoryModal');
-            if (paymentModal) {
-                const dialog = paymentModal.querySelector('.modal-dialog');
-                if (dialog) {
-                    dialog.style.resize = 'both';
-                    dialog.style.overflow = 'hidden';
-                }
-            }
+            addNotification(`New complaint registered for ${cusName} (${roModel}). Booking ID: ${newBookingId}`);
+            showAlert(`Complaint registered successfully! Booking ID: ${newBookingId}`, 'Complaint Raised');
         };
+
+        // Updated simulateTechnicianClose to add warranty for Installation jobs
+        window.simulateTechnicianClose = function() { 
+            const openJobs = bookings.filter(b => b.status !== 'Closed'); 
+            if (openJobs.length === 0) { showAlert('No open/in-process jobs to close.', 'Info'); return; } 
+            const randomIndex = Math.floor(Math.random() * openJobs.length); 
+            const job = openJobs[randomIndex]; 
+            job.status = 'Closed'; 
+            job.paidAmount = Math.floor(Math.random() * 1500) + 500; 
+            job.paymentMethod = Math.random() > 0.5 ? 'Cash' : 'Online'; 
+            job.spareParts = ['Membrane', 'Filter']; 
+            job.comments = 'Routine replacement done.';
+            // Add warranty for Installation type closed jobs
+            if (job.service === 'Installation') {
+                const today = new Date();
+                const warrantyEndDate = new Date(today);
+                warrantyEndDate.setFullYear(today.getFullYear() + 2);
+                job.warrantyFrom = today.toISOString().slice(0,10);
+                job.warrantyTo = warrantyEndDate.toISOString().slice(0,10);
+                job.comments += ' Warranty activated for 2 years.';
+            } else {
+                job.warrantyFrom = null;
+                job.warrantyTo = null;
+            }
+            renderBookings(); 
+            addNotification(`Job for ${job.customer} (${job.service}) was closed. Amount: ₹${job.paidAmount} (${job.paymentMethod})`); 
+            showAlert(`Job ${job.customer} closed.`, 'Technician update'); 
+        };
+
+        function populateTechSelect() { const select = document.getElementById('techSelect'); select.innerHTML = ''; technicians.forEach(tech => { const opt = document.createElement('option'); opt.value = tech; opt.textContent = tech; select.appendChild(opt); }); }
+        window.openAssignModal = function(bookingId) { const b = bookings.find(bk => bk.id === bookingId); if (b) { document.getElementById('assignBookingName').innerText = b.customer; populateTechSelect(); if (b.technician) document.getElementById('techSelect').value = b.technician; currentAssignId = bookingId; new bootstrap.Modal(document.getElementById('assignModal')).show(); } };
+        window.confirmAssign = function() { const tech = document.getElementById('techSelect').value; const booking = bookings.find(b => b.id === currentAssignId); if (booking) { booking.technician = tech; booking.status = 'In Process'; renderBookings(); addNotification(`Technician ${tech} assigned to ${booking.customer}.`); showAlert(`Technician ${tech} assigned to ${booking.customer}`, 'Success'); } bootstrap.Modal.getInstance(document.getElementById('assignModal')).hide(); };
+        function openManageTechModal() { renderTechList(); }
+        function renderTechList() { const list = document.getElementById('techList'); list.innerHTML = ''; technicians.forEach((tech, index) => { const li = document.createElement('li'); li.className = 'list-group-item d-flex justify-content-between align-items-center'; li.innerHTML = `${tech} <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="removeTechnician(${index})"><i class="bi bi-trash"></i></button>`; list.appendChild(li); }); }
+        window.addTechnician = function() { const name = document.getElementById('newTechName').value.trim(); if (name && !technicians.includes(name)) { technicians.push(name); document.getElementById('newTechName').value = ''; renderTechList(); addNotification(`Technician ${name} added.`); } else if (technicians.includes(name)) showAlert('Technician already exists', 'Notice'); };
+        window.removeTechnician = function(index) { if (technicians.length > 1) { const removed = technicians.splice(index, 1)[0]; renderTechList(); addNotification(`Technician ${removed} removed.`); } else showAlert('At least one technician required', 'Cannot remove'); };
+        function addNotification(message) { notifications.push({ message, time: new Date().toLocaleTimeString() }); updateNotificationBadge(); }
+        function updateNotificationBadge() { document.getElementById('notifBadge').innerText = notifications.length; }
+        window.showNotifications = function() { const listDiv = document.getElementById('notificationList'); if (notifications.length === 0) listDiv.innerHTML = '<p class="text-muted text-center">No new notifications</p>'; else { let items = ''; notifications.slice().reverse().forEach(n => { items += `<div class="border-bottom p-2"><small class="text-primary">${n.time}</small><p class="mb-0">${n.message}</p></div>`; }); listDiv.innerHTML = items; } };
+        window.showPaymentHistory = function() { document.getElementById('paymentDateFilter').value = ''; document.getElementById('paymentPhoneFilter').value = ''; paymentDateFilter = ''; paymentPhoneFilter = ''; applyPaymentFilters(); };
+        window.applyPaymentFilters = function() { paymentDateFilter = document.getElementById('paymentDateFilter').value; paymentPhoneFilter = document.getElementById('paymentPhoneFilter').value.trim(); let filtered = bookings.filter(b => b.status === 'Closed' && b.paidAmount != null); if (paymentDateFilter) filtered = filtered.filter(b => b.date === paymentDateFilter); if (paymentPhoneFilter) filtered = filtered.filter(b => b.phone.includes(paymentPhoneFilter)); const listDiv = document.getElementById('paymentHistoryList'); if (filtered.length === 0) { listDiv.innerHTML = '<p class="text-muted text-center">No payment records found.</p>'; return; } let tableHtml = `<div class="table-responsive-wrapper"><table class="table table-sm table-bordered"><thead class="table-light"><tr><th>Booking ID</th><th>Customer</th><th>Phone</th><th>Date</th><th>Tech</th><th>Spare Parts</th><th>Comments</th><th>Amount</th><th>Method</th></tr></thead><tbody>`; filtered.forEach(b => { const spare = b.spareParts ? b.spareParts.join(', ') : '—'; const formattedDate = formatDateDDMMYYYY(b.date); tableHtml += `<tr><td>${b.bookingId}</td><td>${b.customer}</td><td>${b.phone}</td><td>${formattedDate}</td><td>${b.technician || '—'}</td><td>${spare}</td><td>${b.comments || '—'}</td><td>₹${b.paidAmount}</td><td>${b.paymentMethod || '—'}</td></tr>`; }); tableHtml += '</tbody></table></div>'; listDiv.innerHTML = tableHtml; };
+        window.clearPaymentFilters = function() { document.getElementById('paymentDateFilter').value = ''; document.getElementById('paymentPhoneFilter').value = ''; paymentDateFilter = ''; paymentPhoneFilter = ''; applyPaymentFilters(); };
+        function toggleAdminAuth(showSignup) { document.getElementById('loginCard').classList.toggle('hidden', showSignup); document.getElementById('signupCard').classList.toggle('hidden', !showSignup); }
+        window.adminLogin = function() { const email = document.getElementById('loginEmail').value.trim(); const pass = document.getElementById('loginPassword').value.trim(); if (!email || !pass) { showAlert('Enter credentials', 'Login'); return; } adminProfile.email = email; adminProfile.name = email.split('@')[0] || 'Admin'; updateAdminDisplay(); document.getElementById('authSection').classList.add('hidden'); document.getElementById('dashboard').classList.remove('hidden'); renderBookings(); addNotification('Welcome back, Admin.'); };
+        window.adminSignup = function() { const name = document.getElementById('regAdminName').value.trim(); const email = document.getElementById('regAdminEmail').value.trim(); const pass = document.getElementById('regAdminPassword').value.trim(); if (!name || !email || !pass) { showAlert('All fields required', 'Sign up'); return; } adminProfile.name = name; adminProfile.email = email; updateAdminDisplay(); document.getElementById('authSection').classList.add('hidden'); document.getElementById('dashboard').classList.remove('hidden'); renderBookings(); addNotification('Account created. Welcome!'); };
+        window.showLogoutConfirm = function() { new bootstrap.Modal(document.getElementById('logoutConfirmModal')).show(); };
+        window.performLogout = function() { bootstrap.Modal.getInstance(document.getElementById('logoutConfirmModal')).hide(); document.getElementById('dashboard').classList.add('hidden'); document.getElementById('authSection').classList.remove('hidden'); notifications = []; updateNotificationBadge(); };
+        window.onload = function() { updateAdminDisplay(); renderBookings(); updateNotificationBadge(); populateTechSelect(); };
+        window.filterBookings = filterBookings; window.applyDateFilter = applyDateFilter; window.clearDateFilter = clearDateFilter; window.applyFilters = applyFilters; window.showSpareParts = showSpareParts; window.toggleAdminAuth = toggleAdminAuth; window.saveAdminProfile = saveAdminProfile; window.populateAdminProfile = populateAdminProfile; window.openManageTechModal = openManageTechModal;
     })();
 </script>
 </body>
