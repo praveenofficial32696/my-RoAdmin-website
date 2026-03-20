@@ -435,13 +435,32 @@
         }
         .btn-rhythm:hover { background: #1e4a6f; }
 
-        /* Payment History - Mobile Optimized Card View */
+        /* Payment History - Mobile Optimized - Single line layout */
         .payment-filter-row {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding-bottom: 8px;
+            flex-wrap: nowrap;
+            gap: 8px;
+            padding-bottom: 12px;
             align-items: center;
+            justify-content: space-between;
+        }
+        
+        /* Mobile optimization for payment filter row */
+        @media (max-width: 640px) {
+            .payment-filter-row {
+                gap: 6px;
+            }
+            .payment-filter-row input {
+                font-size: 0.7rem;
+                padding: 8px 6px;
+                min-width: 0;
+                flex: 1;
+            }
+            .payment-filter-row .btn {
+                font-size: 0.7rem;
+                padding: 8px 10px;
+                white-space: nowrap;
+            }
         }
         
         .payment-cards-container {
@@ -525,7 +544,6 @@
             .payment-desktop-table { display: none; }
             .payment-mobile-cards { display: block; }
             #paymentHistoryModal .modal-dialog { max-width: 95%; margin: 0.5rem auto; min-width: auto; }
-            .payment-filter-row input, .payment-filter-row button { font-size: 0.75rem; padding: 6px 10px; }
         }
         @media (min-width: 641px) {
             .payment-desktop-table { display: block; }
@@ -616,6 +634,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .complaint-phone-wrapper { position: relative; }
+        
+        /* Fix for active tab highlight */
+        .filter-btn-group .btn.active {
+            background: var(--primary) !important;
+            color: white !important;
+            box-shadow: 0 6px 12px -4px rgba(15,43,75,0.4);
+        }
     </style>
 </head>
 <body>
@@ -647,15 +672,15 @@
     </div>
 </div>
 
-<!-- PAYMENT HISTORY MODAL -->
+<!-- PAYMENT HISTORY MODAL - Optimized for mobile single line -->
 <div class="modal fade" id="paymentHistoryModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0"><h5 class="fw-bold"><i class="bi bi-cash-stack me-2"></i>Payment History</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
             <div class="modal-body">
                 <div class="payment-filter-row mb-3">
-                    <input type="date" id="paymentDateFilter" class="form-control form-control-sm" style="flex:1;">
-                    <input type="text" id="paymentPhoneFilter" class="form-control form-control-sm" placeholder="Phone" style="flex:1;">
+                    <input type="date" id="paymentDateFilter" class="form-control" placeholder="Date">
+                    <input type="text" id="paymentPhoneFilter" class="form-control" placeholder="Phone">
                     <button class="btn btn-sm btn-primary" onclick="applyPaymentFilters()">Apply</button>
                     <button class="btn btn-sm btn-outline-secondary" onclick="clearPaymentFilters()">Clear</button>
                 </div>
@@ -799,7 +824,19 @@
             document.getElementById('filterClosed').innerHTML = `Closed <span class="badge bg-secondary bg-opacity-25 text-white ms-1">${closed}</span>`; 
         }
         
-        function filterBookings(status) { currentStatusFilter = status; document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active')); if (event) event.target.classList.add('active'); applyFilters(); }
+        function filterBookings(status) { 
+            currentStatusFilter = status; 
+            // Fix active tab highlight
+            document.querySelectorAll('.filter-btn-group .btn').forEach(btn => btn.classList.remove('active')); 
+            // Find the button that matches the status and add active class
+            const activeButton = document.querySelector(`.filter-btn-group .btn[onclick*="${status}"]`) || 
+                                  (status === 'All' ? document.getElementById('filterAll') :
+                                   status === 'Open' ? document.getElementById('filterOpen') :
+                                   status === 'In Process' ? document.getElementById('filterProcess') :
+                                   document.getElementById('filterClosed'));
+            if (activeButton) activeButton.classList.add('active');
+            applyFilters(); 
+        }
         function applyDateFilter() { const val = document.getElementById('filterDateDesktop')?.value || document.getElementById('filterDateMobile')?.value || ''; if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = val; if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = val; currentDateFilter = val || null; applyFilters(); }
         function clearDateFilter() { if (document.getElementById('filterDateDesktop')) document.getElementById('filterDateDesktop').value = ''; if (document.getElementById('filterDateMobile')) document.getElementById('filterDateMobile').value = ''; currentDateFilter = null; applyFilters(); }
         function applyFilters() { 
